@@ -1,0 +1,143 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{Math 0450: Homework 1}
+\date{\today}
+\author{Teoh Zhixiang}
+
+\maketitle
+
+\begin{Prob}[Ex. 1.2.2]
+Show that there is no rational number $r$ satisfying $2^r=3$.
+\end{Prob}
+
+\begin{proof}
+$Proof.$ The above statement can be rewritten as
+\begin{equation}
+    \forall r \in \mathbf{Q}: \qquad \neg(2^r = 3)
+\end{equation}
+This is equivalent to
+\begin{equation}
+    \neg \exists r \in \mathbf{Q}: \qquad 2^r = 3
+\end{equation}
+Suppose there exists an $r \in \mathbf{Q}$ that satisfies the above statement (2), i.e. $2^r = 3$. By the definition of $\mathbf{Q}$, $r = \frac{p}{q}$, where $p, q \in \mathbf{Z}$ and $q \neq 0$. \\
+Plugging $r = \frac{p}{q}$ into (2) gives you
+\begin{equation}
+    2^\frac{p}{q} = 3
+\end{equation}
+We can rewrite this as:
+\begin{align}
+    \log_22^\frac{p}{q} = \log_23 & \iff \frac{p}{q} = \log_23 \\
+    & \iff \frac{p}{q} = \frac{\log_x3}{\log_x2}
+\end{align}
+where $x \in \mathbf{R}$. Since 3 is not a power of 2, $\log_23$ is not rational. So we rewrite equation (4) as (5), and now need to find an $x$ that is both a root of 3 and 2. That is:
+\begin{equation}
+    (p = \log_x3) \wedge (q = \log_x2)
+\end{equation}
+So $x$ needs to be an integer that is both a root of 3 and a root of 2. But because no such $x$ exists, statement (5) is false, and we have reached a contradiction with our initial supposition that the statement is true. Therefore there is no rational number $r$ satisfying $2^r = 3$.
+\end{proof}
+\\
+\par
+
+\begin{Prob}[Ex. 1.2.3 (a-b)]
+Decide which of the following  represent true statements about the nature of sets. For any that are false, provide a specific example where the statement in question does not hold.
+\begin{enumerate}
+\item[(a)] If $A_1\supseteq A_2\supseteq A_3\supseteq A_4\supseteq \cdots$ are all sets containing an infinite number of elements, then the intersection $\cap_{n=1}^\infty A_n$ is infinite as well.
+\item[(b)] If $A_1\supseteq A_2\supseteq A_3\supseteq A_4\supseteq \cdots$ are all finite, nonempty sets of real numbers, then the intersection $\cap_{n=1}^\infty A_n$ is finite and nonempty.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+$Solution.$
+\begin{enumerate}
+    \item[(a)]
+    False statement.\\
+    $Proof.$ Consider the following collection of sets with infinite elements that satisfies the nested relation in (a):
+    \begin{align*}
+        A_1 & = \mathbf{N} = \{1, 2, 3, \ldots\} \\
+        A_2 & = \{2, 3, 4, \ldots\} \\
+        A_3 & = \{3, 4, 5, \ldots\}
+    \end{align*}
+    In general, for each $n \in \mathbf{N}$, let
+    \begin{align*}
+        A_n & = \{n,n+1,n+2,\ldots\}
+    \end{align*}
+    Suppose there exists some natural number $m$ that satisfies $m \in \cap_{n=1}^\infty A_n$. This implies that $m \in A_n$ for every $A_n$ in this collection of sets. But consider the set $A_{m+1} = \{m+1, m+2, m+3, \ldots\}$. Clearly, $m$ does not exist in $A_m$, and thus the infinite intersection $\cap_{n=1}^\infty A_n$ that includes $A_{m+1}$ would be empty and not infinite. Therefore, by contradiction, the statement in (a) is false.
+    
+    \item[(b)]
+    True statement.\\
+    $Proof.$ ({\bf Nested Interval Property}). Consider the collection of finite, nonempty sets of real numbers as being a collection of closed intervals $I_n = [a_n, b_n]$. This means that there exists $x \in \mathbf{R}$ such that $a_n \leq x \leq b_n$. To show that the intersection $\cap_{n=1}^\infty A_n$ is finite and nonempty, we need to find a single $x \in I_n$ for every $n \in \mathbf{N}$.
+    Hence, consider the set
+    \begin{equation*}
+        A = \{a_n : n \in \mathbf{N}\}
+    \end{equation*}
+    that is made up of the left bounds of each $I_n$ interval. Since each $I_{n+1} = [a_{n+1}, b_{n+1}]$ interval is nested within every $I_n = [a_n, b_n]$ interval, $b_n$ serves as an upper bound of set $A$. Because the interval $I_n$ gets smaller and smaller, we set $x \in [a_n, b_n]$ as the least upper bound of the set $A$. So $a_n \leq x$, and because each $b_n$ is an upper bound of $A$ but not the least upper bound, $x \leq b_n$. Therefore it has to be the case that $x$ is found in any smallest interval $I_n$, and hence it follows that $x \in \cap_{n=1}^\infty A_n$, and the intersection is not empty.
+\end{enumerate}
+
+\end{proof}
+
+\\
+\par
+\begin{Prob}[Ex. 1.2.4]
+Produce an infinite collection of sets $A_1, A_2, A_3,\dots$ with the property that every $A_i$ has an infinite number of elements, $A_i\cap A_j=\emptyset$ for all $i\neq j$, and $\cup_{i=1}^{\infty} A_i=\mathbf{N}$.
+\end{Prob}
+
+\begin{proof}
+$Solution.$ For each $n \in \mathbf{N}$, let
+\begin{align*}
+    P & = \{2, 3, 5, 7, \ldots, p_n\}
+\end{align*}
+denote the infinite set of prime numbers. Then consider the following collection of sets:
+\begin{align*}
+    A_1 & = \{2, 4, 6, 8, \ldots\} \cup \{1\} \\
+    A_2 & = \{3, 9, 15, 21, \ldots\} \\
+    A_3 & = \{5, 25, 35, \ldots\}
+\end{align*}
+In general, for each $n \in \mathbf{N}$, we define
+\begin{align*}
+    A_n & = \{n \in \mathbf{N} \; | \; \textrm{smallest prime factor of } n \textrm{ is } p_n\}
+\end{align*}
+Therefore, each $A_n$ is disjoint with every other set, i.e. $A_i \cap A_j = \emptyset$ for all $i \neq j$. By definition of $A_n$, and special definition of $A_1$, condition $\cup_{i=1}^{\infty} A_i=\mathbf{N}$ is satisfied.
+\end{proof}
+\\
+\par
+\begin{Prob}[Ex. 1.2.8] Give an example of each or state that the request is impossible:
+\begin{enumerate}
+\item[(a)] $f:\mathbf{N}\to \mathbf{N}$ that is 1-1 but not onto.
+\item[(b)]  $f:\mathbf{N}\to \mathbf{N}$ that is  onto but not 1-1.
+\item[(c)] $f:\mathbf{N}\to \mathbf{Z}$ that is 1-1 and onto.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+$Solution.$
+First define {\it 1-1} and {\it onto}. A function $f:A \to B$ is {\it 1-1} if $a_1 \neq a_2$ in $A$ implies that $f(a_1) \neq f(a_2)$ in $B$. A function $f:A \to B$ is {\it onto} if, given any $b \in B$, it is possible to find an element $a \in A$ for which $f(a) = b$.
+\begin{enumerate}
+    \item[(a)] For each $n \in \mathbf{N}$,
+    \begin{equation*}
+        f(n) = 2n
+    \end{equation*}
+    
+    \item[(b)] For each $n \in \mathbf{N}$,
+    \begin{equation*}
+        f(n) = \lfloor \frac{n}{2} \rfloor
+    \end{equation*} 
+    
+    \item[(c)] For each $n \in \mathbf{N}$ and each $z \in \mathbf{Z}$,
+    \begin{equation*}
+        f(n) = 
+        \begin{cases}
+        0 & \text{if $n = 0$}\\
+        z & \text{if $n$ is odd}\\
+        -z & \text{if $n$ is even}
+        \end{cases}
+    \end{equation*}
+\end{enumerate}
+\end{proof}
+
+
+
+\end{document}

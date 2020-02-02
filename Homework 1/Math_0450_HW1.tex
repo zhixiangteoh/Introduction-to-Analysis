@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{Math 0450: Homework 1 Revised Solutions}
+\date{\today}
+\author{Teoh Zhixiang}
+
+\maketitle
+
+\begin{Prob}[Ex. 1.2.8] Give an example of each or state that the request is impossible:
+\begin{enumerate}
+\item[(a)] $f:\mathbf{N}\to \mathbf{N}$ that is 1-1 but not onto.
+\item[(b)]  $f:\mathbf{N}\to \mathbf{N}$ that is  onto but not 1-1.
+\item[(c)] $f:\mathbf{N}\to \mathbf{Z}$ that is 1-1 and onto.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+$Solution.$
+\begin{enumerate}
+    \item[(a)] For each $n \in \mathbf{N}$,
+    \begin{equation*}
+        f(n) = 2n
+    \end{equation*}
+    Each $n$ in the domain $\mathbf{N}$ maps to a unique value $2n$, so the function is {\it 1-1}. But the value $f(n) = 2n = 1$ has no pre-image in $\mathbf{N}$ and therefore the function is not {\it onto}. 
+    
+    \item[(b)] For each $n \in \mathbf{N}$,
+    \begin{equation*}
+        f(n) = \lfloor \frac{n}{2} \rfloor
+    \end{equation*} 
+    The floor function $f(n) = \lfloor \frac{n}{2} \rfloor$ is defined as the smallest integer greater than or equal to $\frac{n}{2}$. Every element $f(x)$ is an image under $f$ of some element $n \in \mathbf{N}$, more specifically the elements $2f(x)$ and $2f(x) + 1$, so the function is {\it onto}. But because two distinct elements of the domain of $f$ can map to the same $f(x)$ value, for example $f(2) = \lfloor \frac{2}{2} \rfloor = 1 = f(3) = \lfloor \frac{3}{2} \rfloor$, the function $f(n)$ is not {\it 1-1}.
+
+    \item[(c)] $\mathbf{N}$ does not contain $\{0\}$. For $n \in \mathbf{N}$,
+    \begin{equation*}
+        f(n) = 
+        \begin{cases}
+        \lfloor \frac{n}{2} \rfloor & \text{if $n$ is odd and $n \geq 3$}\\
+        0 & \text{if } n = 1 \\
+        -\lfloor \frac{n}{2} \rfloor & \text{if $n$ is even}
+        \end{cases}
+    \end{equation*}
+    Both $\mathbf{N}$ and $\mathbf{Z}$ are infinite sets. $f(n)$ maps each odd natural number greater than $1$ to the positive floor function $\lfloor \frac{n}{2} \rfloor$ so that each positive integer has a pre-image. $0$ is defined to be mapped from the natural number $1$, and each even number in $\mathbf{N}$ maps to the negative floor function $-\lfloor \frac{n}{2} \rfloor$, such that the overall function is {\it onto}. Every element in the domain $\mathbf{N}$ maps to a unique element in the co-domain $\mathbf{Z}$, so the function is {\it 1-1}.
+    
+\end{enumerate}
+\end{proof}
+
+
+
+\end{document}

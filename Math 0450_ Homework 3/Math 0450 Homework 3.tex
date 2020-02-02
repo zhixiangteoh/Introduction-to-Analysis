@@ -1,0 +1,179 @@
+\documentclass[11pt,twoside, reqno, align]{amsart}
+\usepackage{cancel}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\input{fitch.sty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%packages%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%formatting%%%%%%%%%%%%%%%%%%
+
+\setlength{\topmargin}{0in} 
+\setlength{\oddsidemargin}{0in}   
+\setlength{\evensidemargin}{0in}  
+\setlength{\textheight}{8.5in}    
+\setlength{\textwidth}{6.5in}  
+\setlength{\headsep}{0.15in}   
+\setlength{\headheight}{0in}
+\parskip=4pt 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%formatting%%%%%%%%%%%%%%%%%%
+
+\newtheorem{Thm}{Theorem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Lm}[Thm]{Lemma}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Cor}[Thm]{Corollary}
+
+
+\theoremstyle{remark}
+\newtheorem{Rem}[Thm]{Remark}
+\newtheorem{Exp}[Thm]{Example}
+\newtheorem{Prob}{Problem}
+
+%\numberwithin{equation}{section}
+
+
+
+\def\R{\mathbb R}
+\def\Q{\mathbb Q}
+\def\N{\mathbb N}
+\def\Z{\mathbb Z}
+\def\P{\mathbb P}
+
+
+%%%%%%%%%%%%%%%%logical connectors%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\OR}{\vee}
+\newcommand{\AND}{\wedge}
+\renewcommand{\implies}{\Rightarrow}
+\newcommand{\implied}{\Leftarrow}
+\renewcommand{\iff}{\Leftrightarrow}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\title{Math 0450: Homework 3}
+\date{\today}
+\author{Teoh Zhixiang}
+
+\maketitle
+
+
+
+\begin{Prob}
+Let $L=\{q\in \Q~|~q^2<2\}$. Show that  if $q>0$ and $q\in L$ then $q^\prime=2(q+1)/(q+2)\in L$ and $q<q^\prime$. Deduce that $L$ does not have a maximal element.
+\end{Prob}
+
+\begin{proof}
+Write your solution here.
+
+\end{proof}
+
+\begin{Prob}
+Let $U=\{u\in \Q~|~u^2\geq 2\}$. Show that  if $u>0$ and $u\in U$ then $u^\prime=2(u+1)/(u+2)\in U$ and $u>u^\prime$. Deduce that $U$ does not have a minimal element.
+\end{Prob}
+
+\begin{proof}
+Write your solution here.
+
+\end{proof}
+
+
+\begin{Prob}
+Let $F$ be an ordered field. Show that for any $n\geq 1$ and $a_1, a_2, \dots, a_n \in F$ we have
+$$
+|a_1+a_2+\cdots+a_n|\leq |a_1|+|a_2|+\cdots+|a_n|.
+$$™
+\end{Prob}
+
+\begin{proof}
+Write your solution here.
+
+\end{proof}
+
+
+\begin{Prob}
+Let $A$ and $B$ be two sets with $n$ and, respectively, $m$ elements. Let $f:A\to B$ a function. Show that
+\begin{enumerate}
+\item If $f$ injective then $n\leq m$;
+\item If $f$ surjective then $n\geq m$;
+\item If $f$ bijective then $n=m$.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item (Contraposition). $f$ is said to be injective or 1-1 if for every two elements $a,b \in A$, $(f(a) = f(b)) \implies (a = b)$. Assume negation of $n \leq m$ is true, i.e. $n > m$. If $f$ is injective, then every two elements $a_1,a_2 \in A$ must have different images $b_1,b_2 \in B$ under $f$, if $f(a_1) = b_1$ and $f(a_2) = b_2$. Pigeonhole principle states that if $n > m$ containers are put into $m$ containers then at least one container must contain more than one item. So because the cardinality of the domain $|A| = n$ is greater than the cardinality of the codomain $|B| = m$, as assumed, by pigeonhole principle, there is no way to map $n > m$ elements in domain $A$ to $m$ elements in domain $B$ without at least one element in domain $B$ having more than one preimage from domain $A$. So $f$ is shown to not be injective, and by proof of contraposition we have that $f$ injective $\implies n \leq m$.
+    
+    \item (Contraposition). $f$ is said to be surjective or onto if every element $b \in B$ has a preimage $a \in A$. Assume $n < m$. The function $f$ is defined as the relation between sets A and B that associates every element in domain $A$ to exactly one element in the codomain $B$. Hence, similarly by pigeonhole principle, we see that there is no way to map $n < m$ elements in domain $A$ to $m$ elements in domain $B$ without at least one element in domain $A$ mapping to two elements in codomain $B$, which defies the definition of a function. Thus $f$ cannot be surjective, and by proof of contraposition we have that $f$ surjective $\implies n \geq m$.
+    
+    \item Let $p \implies (r \OR s)$ be the statement in part $(1)$ and $q \implies (r \OR t)$ be the statement in part $(2)$, where $p, q, r, t, s$ represent the statements "$f$ injective", "$f$ surjective", "$n = m$", "$n < m$" and "$n > m$" respectively. Hence we can introduce a third proposition $\neg ((n < m)\AND(n > m)) \equiv \neg (s \AND t) \equiv \neg s \OR \neg t$.
+    
+    Now we set up a proof by cases with our three propositional statements, considering the two cases: when $\neg s$ and when $\neg t$. The following is a proof in fitch format:
+    \begin{nd}
+        \hypo {1} {p \implies (r \OR t)}
+        \hypo {2} {q \implies (r \OR s)}
+        \hypo {3} {\neg s \OR \neg t}
+        \open
+            \hypo {4} {\neg t}
+            \open
+                \hypo {5} {p \AND q}
+                \have {6} {p}                           \ae{5}
+                \have {7} {r \OR t}                     \ie{1,6}
+                \open    
+                    \hypo {8} {r}
+                    \have {9} {r}                       \r{8}
+                    \close
+                \open
+                    \hypo {10} {t}
+                    \have {11} {\neg t}                 \r{10}
+                    \have {12} {\bot}                   \ne{10,11}
+                    \have {13} {r}                      \be{12}
+                    \close
+                \have {14} {r}                          \oe{7,8-9,10-13}
+                \close
+            \have {15} {(p \AND q) \implies r}          \ii{5-14}
+            \close
+    \end{nd}
+            
+    \begin{ndresume}
+        \open
+            \hypo {16} {\neg s}
+            \open
+                \hypo {17} {p \AND q}
+                \have {18} {q}                          \ae{17}
+                \have {19} {r \OR s}                    \ie{2,18}
+                \open    
+                    \hypo {20} {r}
+                    \have {21} {r}                      \r{20}
+                    \close
+                \open
+                    \hypo {22} {s}
+                    \have {23} {\neg s}                 \r{22}
+                    \have {24} {\bot}                   \ne{22,23}
+                    \have {25} {r}                      \be{24}
+                    \close
+                \have {26} {r}                          \oe{16,20-21,22-25}
+                \close
+            \have {27} {(p \AND q) \implies r}          \ii{17-26}
+            \close
+        \have {28} {(p \AND q) \implies r}              \oe{3,4-15,16-27}
+        \close
+    \end{ndresume}
+    And from this we can see that statement (3): $f$ bijective $\implies n = m$ follows from statements (2) and (3).
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}
+The set $S$ is said to be infinite if there exists a proper subset $A\subseteq S$ and an injective function $S\to A$. Show that the sets $\N$, $\Z$, and $\Q$ are infinite.
+\end{Prob}
+
+\begin{proof}
+Write your solution here.
+
+\end{proof}
+
+\end{document}
