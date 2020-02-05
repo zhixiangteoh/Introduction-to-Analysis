@@ -67,35 +67,121 @@ Let $L=\{q\in \Q~|~q^2<2\}$. Show that  if $q>0$ and $q\in L$ then $q^\prime=2(q
 \end{Prob}
 
 \begin{proof}
-Write your solution here.
+\begin{align*}
+    (q')^2 & = \frac{(2(q+1))^2}{(q+2)^2} \\
+    & = \frac{4(q^2 + 2q + 1)}{q^2 + 2q + 4} \\
+    & = 4 - \frac{12}{(q+2)^2} \\
+    & < 4 - \frac{12}{(0+2)^2} \\
+    & = 4 - 3 \\
+    & = 1 \\
+    & < 2
+\end{align*}
+$q'= \frac{2(q+1)}{q+2} \in \Q$ if $q \in \Q$, and $(q')^2 < 2$ if $q \in L$ as shown above, so $q' \in L$.
+\begin{align*}
+    q' & = \frac{2q+2}{q+2} \\
+    & = \frac{q(q+2)+2-q^2}{q+2} \\
+    & = q + \frac{2-q^2}{q+2} \\
+    & > q
+\end{align*}
+since $q^2 < 2 \iff 2 - q^2 > 0$ and $0 < q < \sqrt{2} \iff q+2 > 0$. So $q < q'$.
 
+From $q'$ we can recursively, using the formula for $q'$ above, derive a $q'' \in L$ and $q'' > q'$, and likewise for $q''' > q''$, and so on. Since for every $q \in L$ we can derive a $q < q' \in L$ from $q$, this shows there is always an element $q' > q \in L$ for every $q$, and that there is no maximal element in $L$.
 \end{proof}
+
+\paragraph{}
 
 \begin{Prob}
 Let $U=\{u\in \Q~|~u^2\geq 2\}$. Show that  if $u>0$ and $u\in U$ then $u^\prime=2(u+1)/(u+2)\in U$ and $u>u^\prime$. Deduce that $U$ does not have a minimal element.
 \end{Prob}
 
 \begin{proof}
-Write your solution here.
+\begin{align*}
+    (u')^2 & = \frac{(2(u+1))^2}{(u+2)^2} \\
+    & = \frac{4(u^2 + 2u + 1)}{u^2 + 2u + 4} \\
+    & = 4 - \frac{12}{(u+2)^2} \\
+    & < 4 - \frac{12}{(\sqrt{2}+2)^2} \\
+    & = 4 - \frac{12}{6 + 4\sqrt{2}} \\
+    & > 4 - \frac{12}{10} \\
+    & = 2.8 \\
+    & > 2
+\end{align*}
+Note at third last step $\frac{12}{6+4\sqrt{2}}$ is estimated to be $\frac{12}{10}$, and is valid because $(1 < \sqrt{2}) \iff (\frac{12}{10} > \frac{12}{6+4\sqrt{2}}) \iff (4-\frac{12}{10} < 4-\frac{12}{6+4\sqrt{2}})$, and so if $(4-\frac{12}{10} > 2) \iff (4-\frac{12}{6+4\sqrt{2}} > 2)$. $u'= \frac{2(u+1)}{u+2} \in \Q$ if $u \in \Q$, and $(u')^2 > 2$ if $u \in U$ as shown above, so $u' \in L$.
+\begin{align*}
+    u' & = \frac{2u+2}{u+2} \\
+    & = \frac{u(u+2)+2-u^2}{u+2} \\
+    & = u + \frac{2-u^2}{u+2} \\
+    & < u
+\end{align*}
+since $u^2 > 2 \iff 2 - u^2 < 0$ and $0 < \sqrt{2} < u \iff u+2 > 0$. So $\frac{2-u^2}{u+2} < 0$, and $u > u'$. 
 
+From $u'$ we can recursively, using the formula for $u'$ above, derive a $u'' \in U$ and $u'' < u'$, and likewise for $u''' < u''$, and so on. Since for every $u \in U$ we can derive a $u < u' \in U$ from $u$, this shows there is always an element $u' < u \in U$ for every $u$, and hence that there is no minimal element in $U$.
 \end{proof}
 
+\paragraph{}
 
 \begin{Prob}
 Let $F$ be an ordered field. Show that for any $n\geq 1$ and $a_1, a_2, \dots, a_n \in F$ we have
 $$
 |a_1+a_2+\cdots+a_n|\leq |a_1|+|a_2|+\cdots+|a_n|.
-$$™
+$$
 \end{Prob}
 
 \begin{proof}
-Write your solution here.
+(By induction). We first define the absolute value operation $|\cdot|$ as follows:
+$$
+|a| = 
+\begin{cases}
+    a & \text{if $a > 0$}\\
+    -a & \text{if $a < 0$}\\
+    0 & \text{if $a = 0$}
+\end{cases}
+$$
+Let $P(n)$ be the statement $|a_1+a_2+\cdots+a_n|\leq |a_1|+|a_2|+\cdots+|a_n|$, for $n \geq 1$ and $a_1, a_2, \dots, a_n \in F$. We prove two base cases: $P(1)$ and $P(2)$. The first base case, $P(1)$, is trivial because $|a_1| = |a_1| \iff |a_1| \leq |a_1|$. We shall prove $P(2)$, also called the triangle inequality, i.e. $|a_1+a_2|\leq |a_1|+|a_2|$. By definition of absolute value operation, $|a_1 + a_2| \geq 0$, and $|a+b| \geq 0$. Note also
+\begin{align*}
+    |a|^2 & = |a|\cdot|a| \\
+    \text{consider 3 cases:} \\
+    a > 0: |a|^2 & = a \cdot a \\
+    & = a^2 \\
+    a < 0: |a|^2 & = -a \cdot -a \\
+    & = a^2 \;\text{(by property of ordered field $-a \cdot -b = a \cdot b$)} \\
+    a = 0: |a|^2 & = 0 \cdot 0 \\
+    & =a^2 \\
+    \implies |a|^2 & = a^2
+\end{align*}
+Therefore
+\begin{align*}
+    & &|a_1 + a_2| & \leq |a_1| + |a_2| \\
+    & \iff & (a_1 + a_2)^2 & \leq (|a_1| + |a_2|)^2 \\
+    & \iff & a_1^2 + a_2^2 + 2a_1a_2 & \leq |a_1|^2 + |a_2|^2 + 2|a_1||a_2| \\
+    & & & = a_1^2 + a_2^2 + 2|a_1||a_2| \\
+    & \iff & 2a_1a_2 & \leq 2|a_1||a_2| \\
+    & \iff & a_1a_2 & \leq |a_1||a_2|
+\end{align*}
+Note $|a_1||a_2| = |a_1a_2|$: consider cases for different values of $a_1,a_2$. If $a_1, a_2 > 0$ or $a_1, a_2 < 0$, statement valid. ($a_1$ or $a_2 = 0) \implies |0| = |0|$ valid. If only either $a_1$ or $a_2 < 0$: assume $a_2 < 0$, $|a_1||a_2| = a_1(-a_2) = |-a_1a_2| > 0$, similarly for $a_1 < 0$. Therefore $a_1a_2 \leq |a_1||a_2|$ true, and $P(2)$ valid.
 
+Next we assume $P(n)$ true for some $n \in \N$. Then
+\begin{align*}
+    &  & |\underbrace{a_1+a_2+\cdots+a_n}_\text{:= A} + a_{n+1}| & \leq |\underbrace{a_1+a_2+\cdots+a_n}_\text{:= A}| + |a_{n+1}| \\
+    & \iff & |A + a_{n+1}| & \leq |A| + |a_{n+1}|
+    % & \leq |a_1|+|a_2|+\cdots+|a_n|+|a_{n+1}| \\
+    % & \iff & (a_1+a_2+\cdots+a_n+a_{n+1})^2 & \leq (|a_1|+|a_2|+\cdots+|a_n|+|a_{n+1}|)^2 \\
+    % & \iff &  & \leq &
+\end{align*}
+By $P(2)$, the above inequality in $A$ is true. In a similar manner to the above, $P(n+1)$ can be proven in a recursive manner:
+\begin{align*}
+    |A| + |a_{n+1}| & = |a_1 + a_2 + \cdots + a_{n-1} + a_n| + |a_{n+1}| \\
+    & \leq |\underbrace{a_1 + a_2 + \cdots + a_{n-1}}_\text{$A_2$} + a_n| + |a_{n+1}| \\
+    & \leq |A_2| + |a_n| + |a_{n+1}| \\
+    & \leq \ldots
+\end{align*}
+each time using result from $P(2)$. Therefore $P(n+1)$ true, and so by Principle of Mathematical Induction $P(n)$ true for all $n \in \N$.
 \end{proof}
 
+\paragraph{}
 
 \begin{Prob}
 Let $A$ and $B$ be two sets with $n$ and, respectively, $m$ elements. Let $f:A\to B$ a function. Show that
+
 \begin{enumerate}
 \item If $f$ injective then $n\leq m$;
 \item If $f$ surjective then $n\geq m$;
@@ -105,13 +191,14 @@ Let $A$ and $B$ be two sets with $n$ and, respectively, $m$ elements. Let $f:A\t
 
 \begin{proof}
 \begin{enumerate}
-    \item (Contraposition). $f$ is said to be injective or 1-1 if for every two elements $a,b \in A$, $(f(a) = f(b)) \implies (a = b)$. Assume negation of $n \leq m$ is true, i.e. $n > m$. If $f$ is injective, then every two elements $a_1,a_2 \in A$ must have different images $b_1,b_2 \in B$ under $f$, if $f(a_1) = b_1$ and $f(a_2) = b_2$. Pigeonhole principle states that if $n > m$ containers are put into $m$ containers then at least one container must contain more than one item. So because the cardinality of the domain $|A| = n$ is greater than the cardinality of the codomain $|B| = m$, as assumed, by pigeonhole principle, there is no way to map $n > m$ elements in domain $A$ to $m$ elements in domain $B$ without at least one element in domain $B$ having more than one preimage from domain $A$. So $f$ is shown to not be injective, and by proof of contraposition we have that $f$ injective $\implies n \leq m$.
-    
+    \item (Contraposition). $f$ is said to be injective or 1-1 if for every two elements $a,b \in A$, $(f(a) = f(b)) \implies (a = b)$. Assume negation of $n \leq m$ is true, i.e. $n > m$. If $f$ is injective, then every two elements $a_1,a_2 \in A$ must have different images $b_1,b_2 \in B$ under $f$, if $f(a_1) = b_1$ and $f(a_2) = b_2$. Pigeonhole principle states that if $n > m$ containers are put into $m$ containers then at least one container must contain more than one item. So because the cardinality of the domain $|A| = n$ is greater than the cardinality of the codomain $|B| = m$, as assumed, by pigeonhole principle, there is no way to map $n > m$ elements in domain $A$ to $m$ elements in domain $B$ without at least one element in domain $B$ having more than one preimage from domain $A$. So $f$ is shown to not be injective, and by proof of contraposition we have that $f$ injective $\implies n \leq m$. 
+    \\
     \item (Contraposition). $f$ is said to be surjective or onto if every element $b \in B$ has a preimage $a \in A$. Assume $n < m$. The function $f$ is defined as the relation between sets A and B that associates every element in domain $A$ to exactly one element in the codomain $B$. Hence, similarly by pigeonhole principle, we see that there is no way to map $n < m$ elements in domain $A$ to $m$ elements in domain $B$ without at least one element in domain $A$ mapping to two elements in codomain $B$, which defies the definition of a function. Thus $f$ cannot be surjective, and by proof of contraposition we have that $f$ surjective $\implies n \geq m$.
-    
+    \\
     \item Let $p \implies (r \OR s)$ be the statement in part $(1)$ and $q \implies (r \OR t)$ be the statement in part $(2)$, where $p, q, r, t, s$ represent the statements "$f$ injective", "$f$ surjective", "$n = m$", "$n < m$" and "$n > m$" respectively. Hence we can introduce a third proposition $\neg ((n < m)\AND(n > m)) \equiv \neg (s \AND t) \equiv \neg s \OR \neg t$.
     
-    Now we set up a proof by cases with our three propositional statements, considering the two cases: when $\neg s$ and when $\neg t$. The following is a proof in fitch format:
+    Now we set up a proof by cases with our three propositional statements, considering the two cases: when $\neg s$ and when $\neg t$. The following is a First Order Logic (FOL) proof in fitch format:
+    
     \begin{nd}
         \hypo {1} {p \implies (r \OR t)}
         \hypo {2} {q \implies (r \OR s)}
@@ -137,7 +224,6 @@ Let $A$ and $B$ be two sets with $n$ and, respectively, $m$ elements. Let $f:A\t
             \have {15} {(p \AND q) \implies r}          \ii{5-14}
             \close
     \end{nd}
-            
     \begin{ndresume}
         \open
             \hypo {16} {\neg s}
@@ -162,6 +248,7 @@ Let $A$ and $B$ be two sets with $n$ and, respectively, $m$ elements. Let $f:A\t
         \have {28} {(p \AND q) \implies r}              \oe{3,4-15,16-27}
         \close
     \end{ndresume}
+    
     And from this we can see that statement (3): $f$ bijective $\implies n = m$ follows from statements (2) and (3).
 \end{enumerate}
 
@@ -172,7 +259,31 @@ The set $S$ is said to be infinite if there exists a proper subset $A\subseteq S
 \end{Prob}
 
 \begin{proof}
-Write your solution here.
+The set $A$ is defined to be a proper subset of $S$, $A \subset S$, if it satisfies $\{A \subseteq S \mid A \neq S\}$.
+
+We first prove $\N$ is infinite. We define the set $A_1 \subset \N$ as follows:
+$$
+A = \{n \in \N \mid 2n\}.
+$$
+Note that $A_1$ is a proper subset of $S$ because every element $a \in A_1$ also belongs to $\N$, but there is at least one element in $\N$ (in fact all odd natural numbers) that is not in $A_1$. With these sets defined, we have the function $f: A_1 \to \N$, i.e. $f(2n) = n$, for all $n \in \N$. To prove $f$ is injective, we pick any two arbitrary elements $f(n_1) = f(n_2) \in \N$ and show that it must be the case that $n_1 = n_2 \in A_1$. $f(n_1) = f(n_2) \iff \frac{n_1}{\cancel{2}} = \frac{n_2}{\cancel{2}} \iff n_1 = n_2$. Therefore $f$ injective, and we have proven $\N$ infinite. 
+
+We now prove $\Z$ is infinite. We define the set $A_2 \subset \Z$ as the set $\N$. Note that $\N$ is a proper subset of $S$ because $\Z = \N \cup \{0\} \cup (-\N)$; so every element $n \in \N$ also belongs to $\Z$, but there is at least one element in $\Z$ (in fact all non-positive integers) that is not in $\N$. Consider the function $f: \Z \to \N$ defined by:
+$$
+f(n) = 
+\begin{cases}
+    2n+1 & \text{if $n \geq 0$} \\
+    -2n & \text{if $n < 0$}
+\end{cases}
+$$
+for all $n \in \N$. Pick any two arbitrary $f(n_1) = f(n_2) \in \N$. If $f(n_1) = f(n_2)$ is odd, then $n_1 = n_2$ and is the nonnegative integer preimage that maps to the odd natural number $2n_1+1 = 2n_2+1 \iff n_1 = n_2$, else if $f(n_1) = f(n_2)$ is even then $n_1 = n_2$ and is negative. Therefore $f$ is injective, and $\Z$ is infinite.
+
+We now prove $\Q$ is infinite. We define the set $A_3 \subset \Q$ as the set of natural numbers $\N$. Note that $\N$ is a proper subset of $\Q$ because every element in $\N$ is an element of $\Q$ (in particular all elements with denominator $1$) but there is at least one $q \in \Q$ (eg. $\frac{2}{3}$) that is not in $\N$. Consider the function $f:\Q \to \N$ defined as the mapping from elements $(a,b) = \frac{a}{b} \in \Q$ where $gcd(a,b) = 1$, for all $a,b \in \Z$. In Figure 1, imagine there are two coordinate axes pointing in the upwards and rightwards direction, corresponding to $a$ and $b$ respectively, i.e. the point $(1,0) = \frac{1}{0}$ is represented by the point $1$ as shown, even though the value might not necessarily be valid (which in this case it is not because the denominator is 0). But Figure 1 nonetheless proves that there exists an injection from $\Q$ to $\N$, because every simplest rational number $(a,b)$ can be mapped to a natural number, and each natural number has only one rational number preimage. Therefore $Q$ is infinite.
+\begin{figure}
+    \centering
+    \includegraphics{QtoN.png}
+    \caption{Mapping from $\Q$ to $\N$. Each point on the spiral represents an element $(a,b) \in \Q$ that is mapped to a natural number $n \in \N$.}
+    \label{fig:my_label}
+\end{figure}
 
 \end{proof}
 
