@@ -1,0 +1,235 @@
+\documentclass[11pt,twoside, reqno, align]{amsart}
+\usepackage{cancel}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{enumitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%packages%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%formatting%%%%%%%%%%%%%%%%%%
+
+\setlength{\topmargin}{0in} 
+\setlength{\oddsidemargin}{0in}   
+\setlength{\evensidemargin}{0in}  
+\setlength{\textheight}{8.5in}    
+\setlength{\textwidth}{6.5in}  
+\setlength{\headsep}{0.15in}   
+\setlength{\headheight}{0in}
+\parskip=4pt 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%formatting%%%%%%%%%%%%%%%%%%
+
+\newtheorem{Thm}{Theorem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Lm}[Thm]{Lemma}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Cor}[Thm]{Corollary}
+
+
+\theoremstyle{remark}
+\newtheorem{Rem}[Thm]{Remark}
+\newtheorem{Exp}[Thm]{Example}
+\newtheorem{Prob}{Problem}
+
+%\numberwithin{equation}{section}
+
+
+
+\def\R{\mathbb R}
+\def\Q{\mathbb Q}
+\def\N{\mathbb N}
+\def\Z{\mathbb Z}
+\def\P{\mathbb P}
+
+
+%%%%%%%%%%%%%%%%logical connectors%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\OR}{\vee}
+\newcommand{\AND}{\wedge}
+\renewcommand{\implies}{\Rightarrow}
+\newcommand{\implied}{\Leftarrow}
+\renewcommand{\iff}{\Leftrightarrow}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\title{Math 0450: Homework 4}
+\date{\today}
+\author{Teoh Zhixiang}
+
+\maketitle
+
+
+\begin{Prob}(Ex. 1.3.2)
+Give an example of each of the following, or state that the request is impossible.
+\begin{enumerate}
+    \item[(a)] A set $B$ with inf $B \geq$ sup $B$. 
+    \item[(b)] A finite set that contains its infimum but not its supremum.
+    \item[(c)] A bounded subset of $\Q$ that contains its supremum but not its infimum.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}[Solution]\;
+\begin{enumerate}
+    \item[(a)] Consider the singleton set $B = \{1\}$. Here, inf $\{1\} = 1 =$ sup $\{1\}$. So inf $B$ = sup $B$, and because inf $B \not>$ sup $B$, inf $B \geq$ sup $B$ is trivially true and so the statement inf $B \geq$ sup $B$ is true for this set $B$.
+    \item[(b)] Impossible. A finite set always contains both its infimum and supremum, which are respectively its minimum and maximum elements.
+    \item[(c)] Consider the set defined by:
+    $$
+    A = \{q \in \Q \mid 0 < q \leq \frac{1}{n}\} \iff q \in (0,\frac{1}{n}] 
+    $$
+    sup $A = 1 \in A$, if we pick $n = 1$, but inf $A = 0 \not\in A$, by Archimedean Property, as observable in the half-closed interval above. 
+\end{enumerate}
+\end{proof}
+
+\begin{Prob}(Ex. 1.3.8)
+Compute, without proofs, the suprema and infima (if they exist) of the following sets:
+\begin{enumerate}
+    \item[(a)] $\{m/n : m,n \in \N \text{ with } m < n\}$.
+    \item[(b)] $\{(-1)^m/n : m,n \in \N\}$.
+    \item[(c)] $\{n/(3n+1) : n \in \N\}$.
+    \item[(d)] $\{m/(m+n) : m,n \in \N\}$.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}[Solution]\;
+\begin{enumerate}
+    \item[(a)] Let $A = \{m/n : m,n \in \N \text{ with } m < n\}$. sup $A = 1$, inf $A = 0$. Given $m < n$, we pick, without loss of generality, $m = n-1$:
+    \begin{align*}
+        \frac{m}{n} = \frac{n-1}{n} = 1 - \frac{1}{n} < 1.
+    \end{align*}
+    So sup $A = 1$, since inf $\{\frac{1}{n}\} = 0$ for all $n \in \N$, by Archimedean property. To find inf $A$ we set $m = 1$ in an attempt to make the numerator as small as possible:
+    \begin{align*}
+        \frac{m}{n} = \frac{1}{n} > 0.
+    \end{align*}
+    But as we see from above, Archimedean Property leads us to find inf $A = 0$.
+    \item[(b)] Let $A = \{(-1)^m/n : m,n \in \N\}$. sup $A = 1$, inf $A = -1$. To see this we first pick $m$ to be any element in the subset of even natural numbers. Then
+    \begin{align*}
+        \frac{(-1)^m}{n} = \frac{1}{n} < 1
+    \end{align*}
+    for all $n \in \N$, as in part (a), due to the Archimedean Property with real number $\epsilon = 1$. So sup $A = 1$. A similar argument follows by picking $m \in$ subset of odd natural numbers, which gives the result $\frac{(-1)^m}{n} = -\frac{1}{n} > -1$. The last result is just a flip of the inequality above for $\frac{1}{n}$.
+    \item[(c)] Let $A = \{n/(3n+1) : n \in \N\}$. sup $A = \frac{1}{3}$, inf $A = \frac{1}{4}$. First we rewrite $\frac{n}{3n+1}$ as follows:
+    \begin{align*}
+        \frac{n}{3n+1} = \frac{1}{3 + \frac{1}{n}} < \frac{1}{3}.
+    \end{align*}
+    An attempt to find the smallest $\frac{1}{n} = \inf \{\frac{1}{n} \mid n \in \N\} = 0$ to obtain the smallest denominator for a largest overall fraction yields the above result. Likewise note that an attempt to find the largest $\frac{1}{n} = \sup \{\frac{1}{n} \mid n \in \N\} = 1$ yields
+    $$
+        \frac{n}{3n+1} = \frac{1}{3 + \frac{1}{n}} > \frac{1}{3 + 1} = \frac{1}{4}.
+    $$
+    \item[(d)] Let $A = \{m/(m+n) : m,n \in \N\}. \sup A = 1$, $ \inf A = 0$. Rewrite $\frac{m}{m+n}$ as follows:
+    $$
+    \frac{m}{m+n} = \frac{1}{1 + \frac{n}{m}}.
+    $$
+    Then we notice that
+    $$
+    0 < \frac{1}{1+\frac{n}{m}} < \frac{1}{1 + 0} = 1
+    $$
+    by picking $n,m \in \N$ without loss of generality. To see why $\frac{1}{1 + \frac{n}{m}} > 0$: consider $n > m$ such that denominator $1 + \frac{n}{m}$ is largest. Then by Archimedean Property $\frac{1}{\epsilon} > 0$ where $\epsilon \in \R$, $\epsilon > 0$. The derivation of sup $A = 1$ follows simply by picking $n = 1$ and finding smallest $\frac{1}{m}$.
+\end{enumerate}
+\end{proof}
+
+\begin{Prob}(Ex. 1.3.9)
+\begin{enumerate}
+    \item[(a)] If $\sup A< \sup B$, show that there exists an element $b\in B$ that is an upper bound for $A$.
+    \item[(b)] Give an example to show that this is not always the case if we only assume $\sup A\leq \sup B$.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}\;
+\begin{enumerate}
+    \item[(a)] Given sup $A <$ sup $B$. Let $(s =$ sup $A$ and $t =$ sup $B) \iff s < t \iff t-s > 0$.
+    
+    \newtheorem{Lm}[Lemma]: Let $B$ be a set bounded above by a $t \in \R$. $t =$ sup $B$ if and only if for any real number $\epsilon > 0$, there exists a $b_1 \in B$ such that $b_1 > t - \epsilon$.
+    
+    By definition of supremum, we know for all $a \in A$, $a \leq s$, and for all $b \in B$, $b \leq t$. Using above Lemma, pick $\epsilon = t - s > 0$. Then we have $b_1 > t - (t-s) = s$, and so $b_1 >$ sup $A \implies b_1 > a \implies b_1 \geq a$ for all $a \in A$.  
+    \item[(b)] Consider 
+    \begin{align*}
+        A = \{r \in \R \mid r^2 \leq 2\}, \\
+        B = \{q \in \Q \mid q^2 < 2\}.
+    \end{align*}
+    Note sup $A$ = sup $B$ = 2, but max($A$) $= 2$ whereas max($B$) $= \emptyset$. So interestingly this might or might not work depending on which set we pick. If we pick set $A$, then we find that it is true that there exists an $a \in A =$ sup $A =$ max($A$) that is an upper bound for $B$, since sup $B$ = max($A$) $\not \in B$. However if we pick set $B$, then we find that it is not true because max($A$) is an upper bound of $B$.
+\end{enumerate}
+\end{proof}
+
+\begin{Prob}(Ex. 1.3.11)
+Decide if the following statements about suprema and infimum are true or false. Give a short proof for those that are true. For any that are false, supply an example where the claim in question does not appear to hold.
+\begin{enumerate}[label=(\alph*)]
+    \item If $A$ and $B$ are nonempty, bounded, and satisfy $A \subseteq B$, then sup $A \leq$ sup $B$.
+    \item If sup $A <$ inf $B$ for sets $A$ and $B$, then there exists a $c \in \R$ satisfying $a < c < b$ for all $a \in A$ and $b \in B$.
+    \item If there exists a $c \in \R$ satisfying $a < c < b$ for all $a \in A$ and $b \in B$, then sup $A <$ inf $B$.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}\;
+\begin{enumerate}[label=(\alph*)]
+    \item True. $A$ and $B$ are nonempty and bounded, so by Axiom of Completeness there exists a sup $A$ and sup $B$. If $A \subseteq B$, then by definition of subset every element $a \in A$ is also an element of $B$. That is, for all $a \in A$, $a \in B$. Then consider two cases:
+    \begin{align*}
+        & (1): \text{sup } A \in A, \text{and} \\
+        & (2): \text{sup } A \not \in A.
+    \end{align*}
+    If (1), then sup $A \in B$ by subset relation, and so sup $B \geq b$ for all $b \in B$ also satisfies sup $B \geq$ sup $A$. If (2), remember that $A \subseteq B$ and so sup $A \not >$ sup $B$ because that would mean sup $A \not \in B$, and so we will come to a contradiction with the original assumption $A \subseteq B$. That leaves us with sup $A \leq $ sup $B$, and the proof is complete.
+    \item True. Let $s =$ sup $A$ and $t =$ inf $B$. By definitions of supremum and infimum, $a \leq s$ for all $a \in A$, and $t \leq b$ for all $b \in B$. If sup $A <$ inf $B$ for sets $A$ and $B$, then $s < t$. Overall we have $a \leq s < t \leq b$, for all $a \in A$ and $b \in B$.
+    
+    \newtheorem{Lm}[Variation of Lemma 1.3.8]: Let $B$ be a set bounded below by a $t \in \R$. $t =$ inf $B$ if and only if for any real number $\epsilon > 0$, there exists a $b_1 \in B$ such that $b_1 < t + \epsilon \iff b_1 - \epsilon < t$.
+    
+    \newtheorem{Lm}[Lemma 1.3.8]: Let $A$ be a set bounded above by a $s \in \R$. $s =$ sup $B$ if and only if for any real number $\epsilon > 0$, there exists a $a_1 \in A$ such that $a_1 > s - \epsilon \iff a_1 + \epsilon > s$.
+    
+    We need to show there exists a $c \in \R$ such that $s < c < t \iff a < c < b$. Pick $\epsilon = \frac{b_1 - a_1}{2}$. Then we have $$
+    s < a_1 + \epsilon = a_1 + \frac{b_1 - a_1}{2} = \frac{a_1 + b_1}{2}
+    $$
+    and 
+    $$
+    b_1 - \epsilon = b_1 - \frac{b_1 - a_1}{2} = \frac{a_1 + b_1}{2} < t.
+    $$
+    Let $c \in \R$ be $\frac{a_1 + b_1}{2}$. Then we have shown $s < c < t$, and therefore $a < c < b$.
+    \item False. Consider the sets
+    $$
+    A = \{q \in \Q \mid q^2 < 2\}
+    $$
+    and 
+    $$
+    B = \{q \in \Q \mid q^2 > 2\}
+    $$
+    There is a $c \in \R$ satisfying $c^2 = 2$ that satisfies the inequality relation $a < c <b$ for all $a \in A$ and $b \in B$, by definitions of $A$ and $B$, but sup $A =$ inf $B = c \implies$ sup $A \not <$ inf $B$.
+\end{enumerate}
+\end{proof}
+
+\begin{Prob}(Ex. 1.4.8)
+Give an example of each or state that the request is impossible. When a request is impossible, provide a compelling argument for why this is the case.
+\begin{enumerate}[label=(\alph*)]
+    \item Two sets $A$ and $B$ with $A \cap B = \emptyset$, sup $A =$ sup $B$, sup $A \not\in A$ and sup $B \not\in B$.
+    \item A sequence of nested open intervals $J_1 \supseteq J_2 \supseteq J_3 \supseteq \cdots$ with $\bigcap_{n=1}^\infty J_n$ nonempty but containing only a finite number of elements. 
+    \item A sequence of nested unbounded closed intervals $L_1 \supseteq L_2 \supseteq L_3 \supseteq \cdots$ with $\bigcap_{n=1}^\infty L_n = \emptyset$. (An unbounded closed interval has the form $[a,\infty) = \{x \in \R : x \geq a\}$.) 
+    \item A sequence of closed bounded (not necessarily nested) intervals $I_1,I_2,I_3,\ldots$ with the property that $\bigcap_{n=1}^N I_n \neq \emptyset$ for all $N \in \N$, but $\bigcap_{n=1}^\infty I_n = \emptyset$.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}[label=(\alph*)]
+    \item Let
+    $$
+    A = \Q \cap (0,1)
+    $$
+    and
+    $$
+    B = (\R \setminus \Q) \cap (0,1).
+    $$
+    $\Q \cap (\R \setminus \Q) = \emptyset$, so $A \cap B = \emptyset$. sup $A =$ sup $B = 1$, and $1 \not \in A$, $1 \not \in B$.
+    \item Consider
+    $$
+    J_n = \{x \in \R \mid -\frac{1}{n} < x < \frac{1}{n} \text{ for } n \in \N \} = (-\frac{1}{n}, \frac{1}{n}).
+    $$
+    sequence of $J_n$ nested open intervals, since every $J_{n+1} = (-\frac{1}{n+1},\frac{1}{n+1}) \subseteq (-\frac{1}{n}, \frac{1}{n}) = J_n$. $\bigcap^\infty_{n = 1} J_n = 0$, finite and nonempty, because there exists $n \in \N$ such that $\frac{1}{n} < \epsilon$ for all real numbers $\epsilon > 0$, by Archimedean Property, so $0 \in J_n$ for all $n \in \N$.
+    \item Consider the sequence of nested unbounded closed intervals given by (as prompted in question):
+    $$
+    L_n = \{x \in \R \mid n \geq x \text{ for } n \in \N \} = [n,\infty).
+    $$
+    
+    Note \newtheorem{Lm}[Unboundedness of $\N$]: For all real numbers $\epsilon > 0$, there exists an $n \in \N$ such that $n > \epsilon$.
+    
+    Suppose for contradiction that there exists an element $m \in \bigcap^\infty_{n=1}L_n$. Then the element $m$ belongs to $L_n$ for all $n \in \N$. So $m \geq n$ for all $n \in \N$, in other words meaning $m$ is an upper bound of $\N$. But this contradicts the unboundedness theorem of $\N$.
+    \item Impossible. Suppose for contradiction that that there is such a sequence of closed bounded intervals $I_n$. That means that there exists two sets in this sequence $I_j$ and $I_k$ such that $I_j \cap I_k = \emptyset$, for some $j,k \in \N$. Now assume, without loss of generality, that $j < k$. Then $\bigcap^k_{n=1}I_n = \emptyset$, contradicting property that $\bigcap^N_{n=1}I_n \neq \emptyset$.
+\end{enumerate}
+\end{proof}
+
+\end{document}
