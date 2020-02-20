@@ -1,0 +1,329 @@
+\documentclass[11pt,twoside, reqno]{amsart}
+\usepackage{cancel}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{enumitem}
+\usepackage{pgfplots}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%packages%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%formatting%%%%%%%%%%%%%%%%%%
+
+\setlength{\topmargin}{0in} 
+\setlength{\oddsidemargin}{0in}   
+\setlength{\evensidemargin}{0in}  
+\setlength{\textheight}{8.5in}    
+\setlength{\textwidth}{6.5in}  
+\setlength{\headsep}{0.5in}   
+\setlength{\headheight}{0in}
+\parskip=4pt 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%formatting%%%%%%%%%%%%%%%%%%
+
+\newtheorem{Thm}{Theorem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Lm}[Thm]{Lemma}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Cor}[Thm]{Corollary}
+
+
+\theoremstyle{remark}
+\newtheorem{Rem}[Thm]{Remark}
+\newtheorem{Exp}[Thm]{Example}
+\newtheorem{Prob}{Problem}
+
+%\numberwithin{equation}{section}
+
+
+
+\def\R{\mathbb R}
+\def\Q{\mathbb Q}
+\def\N{\mathbb N}
+\def\Z{\mathbb Z}
+
+
+%%%%%%%%%%%%%%%%logical connectors%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\OR}{\vee}
+\newcommand{\AND}{\wedge}
+\renewcommand{\implies}{\Rightarrow}
+\newcommand{\implied}{\Leftarrow}
+\renewcommand{\iff}{\Leftrightarrow}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{Math 0450: Homework 5}
+\date{\today}
+\author{Teoh Zhixiang}
+
+\maketitle
+
+
+
+\begin{Prob}
+Show that the function $f:\N \times \N \to \N$, defined by $f(a,b)=(a+b)(a+b+1)/2+b$ is bijective. 
+
+\end{Prob}
+
+\begin{proof}
+To prove bijection we will attempt to find an inverse function $g:\N \to \N \times \N$, well-defined for all $n \in \N$. This means that
+\begin{align*}
+n &= \frac{(a+b)(a+b+1)}{2} + b \\
+\iff 2n - 2b &= (a+b)(a+b+1)
+\end{align*}
+for all $n \in \N$ and $a,b \in \R$. In other words there exists an $m \in \N$ such that $2n - 2b = m(m+1)$, and we need to find this $b \in \R$ in terms of this $m$.
+Define 
+\begin{align*}
+   a_m & = m(m+1) \\
+   & = m^2 + m
+\end{align*}
+for $m \in \N$. Then $a_{m-1} = (m-1)m = m^2 - m < m^2 + m = a_m$, since $m \geq 1$. $a_m - a_{m-1} = (m^2 + m) - (m^2 - m) = 2m > 0$. So $\{a_m\}$ is a strictly increasing sequence, and $a_m > a_{m-1}$ for all $m \in \N$. Each $a_m$ represents an even natural number, so $\{a_m\}$ represents a strictly increasing sequence of even natural numbers. Given any $k \in \N$, $\exists m \in \N$ such that $a_{m-1} \leq k < a_m$. In other words, all natural numbers $k$ are either even numbers or odd numbers sandwiched between two even numbers, and this is true. Now let $n \in \N$, then 
+$$
+a_{m-1} \leq 2n < a_m
+$$
+for some $m \in \N$. Then let
+$$
+b = \frac{2n-a_{m-1}}{2} = \frac{2n-(m-1)m}{2} < \frac{a_m-a_{m-1}}{2} = m
+$$
+knowing $a_{m-1} = m^2-m \geq 0$. Let 
+$$
+a = (m-1)-b.
+$$
+With this, $f(a,b) = n$ as follows:
+\begin{align*}
+f(a,b) &= \frac{(a+b)(a+b+1)}{2} + b \\
+&= \frac{(m-1-b+b)(m-1-b+b+1)}{2} + \frac{2n-(m-1)m}{2} \\
+&= \frac{\cancel{(m-1)m}}{2} + \frac{2n\cancel{-(m-1)m}}{2} \\
+&= n.
+\end{align*}
+We define an inverse function $g:\N \to \N \times \N$ as $g(n) = (a,b)$, where $a$ and $b$ are defined from $n$ as above. We see that $f(g(n)) = f((a,b)) = n$, and $g(f(a,b)) = g(n) = (a,b)$. Therefore $f$ and $g$ are mutually inverse, and $f$ is bijective.
+\end{proof}
+
+\begin{Prob}(Ex. 1.5.1) Finish the proof for Theorem 1.5.7: If $A\subseteq B$ and $B$ is countable, then $A$ is either countable or finite.
+\end{Prob}
+
+\begin{proof}
+If $A$ is finite, we are done. $B$ is countable. Thus there exists a bijective function $f:\N \to B$ which is 1--1 and onto. Let $A$ be an infinite subset of $B$. Note $A \neq \emptyset$ since empty sets are finite sets.
+
+We want to define a $g:\N \to A$. Let $n_1 = \min \{m \in \N : f(m) \in A\}$, and set $g(1) = f(n_1)$. Assume
+$$
+n_m = \min \{m \in \N \setminus \cup^{m-1}_{i=1}n_i : f(m) \in A\}.
+$$
+well-defined for all $n \in \N$. Then
+$$
+n_{m+1} = \min \{m \in (\N \setminus \cup^{m-1}_{i=1}n_i) \setminus n_n : f(m) \in A\}
+$$
+with $(\N \setminus \cup^{m-1}_{i=1}n_i) \setminus n_m$ nonempty subset of infinite $\N$. Note that by well-ordering principle there exists a minimal element $n_{m+1} \in \N$ that maps to an element $f(n_{m+1}) \in A \subseteq B$, since $B$ infinite. Because $f$ is onto, and $A \subseteq B$, every element $a \in A \subseteq B$ has a preimage $n_m$ as defined above. Because $f$ is 1--1, we know that every $n_m$ maps to a distinct image under $A$, that is $\forall n_m \in \N$, $\exists! f(n_m) \in A : g(m) = f(n_m)$.
+
+Hence we define $g:\N \to A$ as
+$$
+g(m) = f(n_m)
+$$
+which is bijective since $f$ bijective. Therefore $A$ is countable.
+\end{proof}
+
+
+\begin{Prob}(Ex. 1.5.2) Use the following outline (as specified in the textbook) to supply proofs for the statements in Theorem 1.5.8.
+\end{Prob}
+
+\begin{proof} Two statements in Theorem 1.5.8:
+\begin{enumerate}
+    \item If $A_1, A_2, \ldots A_m$ are each countable sets, then the union $A_1 \cup A_2 \cup \cdots \cup A_m$ is countable.
+    \item If $A_n$ is a countable set for each $n \in \N$, then $\bigcup^\infty_{n=1} A_n$ is countable.
+\end{enumerate}
+\begin{enumerate}
+    \item[(a)] Proof by induction. We first prove the statement for two countable sets, that is $A_1 \cup A_2$ countable if $A_1, A_2$ countable. First replace $A_2$ with the set $B_2 = A_2 \setminus A_1 = \{x \in A_2 : x \not \in A_1\}$. Note that the union $A_1 \cup B_2 = A_1 \cup A_2$, but crucially the sets $A_1$ and $B_2$ are disjoint. Because $A_1$ countable, there exists a bijective function $f:\N \to A_1$. 
+    
+    Consider two cases: $B_2$ finite and $B_2$ infinite. If $B_2$ finite, $\exists n \in \N : B_2 = \{b_k : \forall k \in \N, k \leq n \}$ and we define a function $g:\N \to B_2$ by
+    $$
+    g(n) = b_n
+    $$
+    and
+    $$
+    g(n+m) = f(m)
+    $$
+    for all $m \in \N : f(m) \in A_1$. So $g$ is a 1--1 function from $\N$ to $A_1 \cup B_2 = A_1 \cup A_2$, and $A_1 \cup A_2$ countable.
+    
+    \newtheorem{Lm}[Lemma 1.5.7]{ If $A \subseteq B$ and $B$ is countable, then $A$ is either countable or finite.}
+    
+    If $B_2$ infinite, $B_2 \subseteq A_2$, and by Lemma 1.5.7, $B_2$ is countable. Here, we attempt to  partition the infinite set of $\N$ to use as inputs for our two bijective functions $f:\N \to A_1$ and $g:\N \to B_2$ to produce an overall bijective function $h:\N \to A_1\cup A_2$. We have
+    \begin{align*}
+        h(n) = 
+    \begin{cases}
+        f((\frac{n+1}{2})) &\text{if $n$ odd $\iff n = 2n-1$, $\forall n \in \N$}\\
+        g(\frac{n}{2}) &\text{if $n$ even $\iff n = 2n$, $\forall n \in \N$}
+    \end{cases}
+    \end{align*}
+    which is bijective. Therefore $A_1 \cup A_2$ countable.
+    
+    Next assume $A_1 \cup A_2 \cup A_3 \cup \cdots A_m$ is countable for some $m \in \N$. Then
+    $$
+    A_1 \cup A_2 \cup A_3 \cup \cdots A_m \cup A_{m+1} = \overbrace{(A_1 \cup A_2 \cup A_3 \cup \cdots A_m)}^{\text{countable}} \cup \overbrace{A_{m+1}}^{\text{countable}}
+    $$
+    Since we have shown $A_1 \cup A_2 \cup A_3 \cup \cdots A_m$ countable $\implies A_1 \cup A_2 \cup A_3 \cup \cdots A_m \cup A_{m+1}$ countable, by Principle of Mathematical Induction, $A_1 \cup A_2 \cup A_3 \cup \cdots A_m$ countable for all $m \in \N$.
+    \item[(b)] $\bigcup^\infty_{n=1} A_n = \lim_{N \to \infty} \cup^N_{n=1} A_n$. Induction from part (i) cannot be used to evaluate limits to infinity. The principle of mathematical induction states that given a proposition $P(n)$, if $P(1)$ true and $P(n) \implies P(n+1)$ true, for some $n \in \N$, then $P(n)$ true for all $n \in \N$. Here, the proposition $P(n)$ is $\bigcup^N_{n=1}A_n$, where each 
+    $A_n$ countable, is countable for $N$ number of $A_n$ sets. By induction in the first part we have shown $P(n)$ true for all $n \in \N$. But the statement of the limit to infinity of this union is not in the proposition $P(n)$, therefore induction cannot be used to prove part (ii) from part(i).
+    \item[(c)] Define
+    $$
+    A_1 = A_1,
+    $$
+    $$
+    A_2 = A_2 \setminus A_1,
+    $$
+    and
+    $$
+    A_n = A_n \setminus \bigcup^{n-1}_{i=1} A_i
+    $$
+    We will assume, without loss of generality, that all $A_n$ are nonempty, countably infinite sets. This definition of $A_n$ is valid because the value of the infinite union is preserved. Each $A_n$ and $A_{n+1}$ are pairwise disjoint. Arranging $\N$ into a two-dimensional array, define
+    \begin{align*}
+        B_1 &= \{1,3,6,\ldots\},\\
+        B_2 &= \{2,5,9,\ldots\},\\
+        B_3 &= \{4,8,13,\ldots\},\\
+        \vdots\\
+        B_n &= \{k \in \N : k \text{ belongs to the $n^{th}$ row of the 2-d array}\}
+    \end{align*}
+    It can be seen that each $B_n$ is countable, by the columns of the two-dimensional $\N$ array, $B_n \sim \N$ and there exists bijective function $g_n: \N \to B_n$ for all $B_n$. From above  definition of $A_n$ we see that each $A_n$ is countably infinite, and therefore there exists a bijective function $f_n: \N \to A_n$ for all $A_n$.
+    
+    Next we want to define a bijective function $h:B_n \to A_n$. Denote each element of $B_n$ as $b_{n_i}$ for $i \in \N$, and each element of $A_n$ as $a_{n_i}$ for $i \in \N$. Then consider the function
+    $$
+    h(b_{n_i}) = a_{n_i}
+    $$
+    which is 1--1 and onto. It is 1--1 because each $b_{n_i}$ and $a_{n_i}$ is unique, and onto because each $a_{n_i}$ has a preimage $b_{n_i}$, as shown above. So we have
+    $$
+    h:B \to A
+    $$
+    where $B = \bigcup^\infty_{n=1} B_n = \N$ by definition and $A = \bigcup^\infty_{n=1} A_n$. In other words
+    $$
+    h: \N \to \bigcup^\infty_{n=1} A_n
+    $$
+    and we have shown $\bigcup^\infty_{n=1} A_n$ is countable.
+\end{enumerate}
+\end{proof}
+
+
+\begin{Prob}(Ex. 1.5.4) 
+\begin{enumerate}
+\item[(a)] Show $(a, b) \sim \R$ for any interval $(a, b)$.
+\item[(b)] Show that an unbounded interval like $(a, \infty) = \{x~ :~ x > a\}$ has the same cardinality as $\R$ as well.
+\item[(c)] Using open intervals makes it more convenient to produce the required 1--1, onto functions, but it is not really necessary. Show that $[0, 1)\sim (0, 1)$ by exhibiting a 1--1 onto function between the two sets.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}\;
+\begin{enumerate}
+\item[(a)] We know the open real interval $(-1,1) \sim \R$. This means that there is a bijective function $f:(-1,1) \to \R$, and $(-1,1)$ has the same cardinality as $\R$. We will attempt to find a bijective function from the open interval $(a,b)$ to $(-1,1)$. This would mean $(a,b)$ has same cardinality as $(-1,1)$ and consequently same cardinality as $\R$, therefore we would have proven $(a,b) \sim \R$.
+
+Define $g:(a,b) \to (-1,1)$ by
+\begin{align*}
+g(x) &= \underbrace{(\sup (-1,1) - \inf (-1,1))}_{1-(-1) = 2} \cdot \frac{x - \overbrace{\inf (a,b)}^{a}}{\underbrace{\sup (a,b) - \inf (a,b)}_{b-a}} - \frac{\overbrace{\sup (-1,1) - \inf (-1,1)}^{1-(-1)=2}}{2} \\
+&=2 \cdot \frac{x-a}{b-a} - 1.
+\end{align*}
+This is valid because $(a,b) \implies a < b \implies b - a > 0$. We need to check $g$ is 1--1 and onto. To check 1--1 we pick any two arbitrary preimages $x_1, x_2$ and show that $g(x_1) = g(x_2) \implies x_1 = x_2$: 
+\begin{align*}
+    g(x_1) &= 2 \cdot \frac{x_1 - a}{b-a} - 1 \\
+    &= 2 \cdot \frac{x_2 - a}{b-a} - 1 \\
+    &= g(x_2) \\ 
+    \iff \cancel{2} \cdot \frac{x_1 \cancel{- a}}{\cancel{b-a}} \cancel{- 1} &= \cancel{2} \cdot \frac{x_2 \cancel{- a}}{\cancel{b-a}} \cancel{- 1} \\
+    \iff x_1 &= x_2
+\end{align*}
+So $g$ is 1--1. To check onto we show that for all elements $y \in (-1,1)$ there exists a $x \in (a,b)$ such that $g(x) = y$. Pick an arbitary $y \in (-1,1)$. We see that
+\begin{align*}
+& -1 < y < 1 \\
+g(x) &= 2 \cdot \frac{x - a}{b-a} - 1 \\
+&= \frac{2x- a - b}{b-a}\\
+&= \frac{2x -(b-a) -2a}{b-a}\\
+&= -1 + \frac{2(x-a)}{b-a}\\
+&< -1 + 2\\
+&= 1
+\end{align*}
+This is valid because $x < b \implies x-a < b-a$. Also note
+$$
+-1 < -1 + \frac{2(x-a)}{b-a}
+$$
+because $x > a \implies x - a > 0$. Therefore $g$ is onto. We have proven $g$ 1--1 and onto, therefore we have proven $g$ bijective, and $(a,b) \sim (-1,1) \sim \R$.
+\item[(b)] To show that $(a,\infty) \sim \R$, we just need to show $(a,\infty) \sim (0,1)$ because we know $(0,1) \sim \R$.
+
+Define a function $f:(a,\infty) \to (0,1)$ by
+$$
+f(x) = \frac{1}{1+\underbrace{x-a}_{\lim_{x \to \infty}x-a = \infty}}
+$$
+We need to check that $f$ is bijective, i.e. 1--1 and onto. To check 1--1 we pick any two arbitrary preimages $x_1, x_2 \in (a,\infty)$ and show that $f(x_1) = f(x_2) \implies x_1 = x_2$:
+\begin{align*}
+    f(x_1) &= \frac{1}{1 + x_1 - a} \\
+    &= \frac{1}{1 + x_2 - a} \\
+    &= f(x_2) \\
+    \iff \frac{1}{1 + x_1 - a} &= \frac{1}{1 + x_2 - a}\\
+    \cancel{1} + x_2 \cancel{- a} &= \cancel{1} + x_1 \cancel{- a} \\
+    \iff x_1 &= x_2
+\end{align*}
+This is valid because $x_1,x_2 > a \implies (x_1 - a > 0$ and $x_2 - a > 0$).
+To check onto we show that for all elements $y \in (b, c)$ there exists a $x \in (a,\infty)$ such that $f(x) = y$. Pick an arbitary $y \in (0,1)$. We see that
+\begin{align*}
+    y &= f(x)\\
+    &=\frac{1}{1 + x - a}\\
+    \frac{1}{y} & = 1 + x - a\\
+    x &= \frac{1}{y} -1 + a\\
+    &> 1 -1 + a\\
+    &= a\\
+\end{align*}
+Note that $x = 1/y - 1 + a$ is unbounded because $0 < y < 1 \implies 1/y > n$ for any $n \in \N$, by Archimedean Property and Density of $\Q$ in $\R$. Therefore $x = 1/y - 1 + a$ gets larger and larger as $y$ gets closer and closer to $0$, and therefore we have shown $x \in (a,\infty)$ exists for any $y \in (0,1)$. So $f$ onto. Therefore $f$ bijective, and $(a,\infty) \sim (0,1) \sim \R$.
+\item[(c)] Consider the function $f:[0,1) \to (0,1)$ defined by
+\begin{align*}
+    f(x) = 
+    \begin{cases}
+        \frac{1}{2} & \text{if $x = 0$}\\
+        \frac{1}{n+1} & \text{if $x = \frac{1}{n}$, $\forall n \in \N : n \geq 2$}\\
+        x & \text{if $x \neq \frac{1}{n}$}
+    \end{cases}
+\end{align*}
+To check $f$ 1--1 we pick any two arbitrary preimages $x_1, x_2 \in (a,\infty)$ and show that $f(x_1) = f(x_2) \implies x_1 = x_2$:
+\begin{align*}
+    f(x_1) &= 
+    \begin{cases}
+        \frac{1}{2} & \text{if $x_1 = 0$}\\
+        \frac{1}{n+1} & \text{if $x_1 = \frac{1}{n}$, $\forall n \in \N : n \geq 2$}\\
+        x_1 & \text{if $x_1 \neq \frac{1}{n}$}
+    \end{cases}\\
+    &= 
+    \begin{cases}
+        \frac{1}{2} & \text{if $x_2 = 0$}\\
+        \frac{1}{n+1} & \text{if $x_2 = \frac{1}{n}$, $\forall n \in \N : n \geq 2$}\\
+        x_2 & \text{if $x_2 \neq \frac{1}{n}$}
+    \end{cases}\\
+    &= f(x_2)
+\end{align*}
+3 cases:
+\begin{enumerate}
+    \item[(1)] $f(x_1) = f(x_2) = \frac{1}{2}$. Then $x_1 = 0 = x_2$.
+    \item[(2)] $f(x_1) = f(x_2) = \frac{1}{n+1}$. Then $x_1 = \frac{1}{n} = x_2$.
+    \item[(3)] $f(x_1) = x_1 = x_2 = f(x_2)$. Then $x_1 = x_2$.
+\end{enumerate}
+Therefore $f$ 1--1. To show $f$ onto we pick an arbitrary $y \in (0,1)$, and show that there exists a preimage $x \in [0,1)$ that maps to $y$ under $f$.
+
+Again, 3 cases:
+\begin{enumerate}
+    \item[(1)] $y = \frac{1}{2} \implies x = 0 \in [0,1)$.
+    \item[(2)] $y = \frac{1}{n} \implies x = \frac{1}{n}$, $\forall n \in \N : n \geq 2$. This $x \in [0,1)$ since $\frac{1}{n} < 1$ for all $n \in \N$.
+    \item[(3)] $y = x$. This covers all other $y \in (0,1)$ that doesn't fall under the first two cases.
+\end{enumerate}
+So $f$ onto. Therefore $f$ bijective, and $[0,1) \sim (0,1)$.
+\end{enumerate}
+\end{proof}
+
+\begin{Prob}(Ex. 1.5.6 (b)) Give an example of an uncountable collection of disjoint open intervals, or argue that no such collection exists.
+\end{Prob}
+
+\begin{proof}
+No such collection exists.
+
+\newtheorem{Lm}[Lemma]{ Density of $\Q$ in $\R$.} For any open interval $(a,b) \in \R$, there exists a $q \in \Q$ such that $a < q < b$. 
+
+\newtheorem{Lm}[Lemma]{ $\Q$ is countable.} That is, there exists a function $f:\Q \to \N \iff \Q \sim \N$. 
+
+Because these open intervals are disjoint, no two open intervals in this collection share the same rational number $q$, and each open interval contains a distinct $q \in \Q$. Because $\Q \sim \N$, and $\Q$ countable, if we define each open interval $(a,b)$ in $\R$ by their distinct $q \in (a,b)$, we find that there is a bijection $f:\bigsqcup_{i=1}^\infty (a_i,b_i) \to \Q$. Any collection of disjoint open intervals in $\R$ corresponds to a countable collection of rational numbers $q \in \R$, therefore there is no such uncountable collection of disjoint open intervals.
+\end{proof}
+
+
+\end{document}
