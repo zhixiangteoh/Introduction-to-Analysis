@@ -1,0 +1,532 @@
+\documentclass[11pt,twoside, reqno]{amsart}
+\usepackage{cancel}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{enumitem}
+% \usepackage{pgfplots}
+\usepackage{amssymb}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%packages%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%formatting%%%%%%%%%%%%%%%%%%
+
+\setlength{\topmargin}{0in} 
+\setlength{\oddsidemargin}{0in}   
+\setlength{\evensidemargin}{0in}  
+\setlength{\textheight}{8.5in}    
+\setlength{\textwidth}{6.5in}  
+\setlength{\headsep}{0.5in}   
+\setlength{\headheight}{0in}
+\parskip=4pt 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%formatting%%%%%%%%%%%%%%%%%%
+
+\newtheorem{Thm}{Theorem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Lm}[Thm]{Lemma}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Cor}[Thm]{Corollary}
+
+
+\theoremstyle{remark}
+\newtheorem{Rem}[Thm]{Remark}
+\newtheorem{Exp}[Thm]{Example}
+\newtheorem{Prob}{Problem}
+
+%\numberwithin{equation}{section}
+
+
+
+\def\R{\mathbb R}
+\def\Q{\mathbb Q}
+\def\N{\mathbb N}
+\def\Z{\mathbb Z}
+
+
+%%%%%%%%%%%%%%%%logical connectors%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\OR}{\vee}
+\newcommand{\AND}{\wedge}
+\renewcommand{\implies}{\Rightarrow}
+\newcommand{\implied}{\Leftarrow}
+\renewcommand{\iff}{\Leftrightarrow}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{Math 0450: Homework 8}
+\date{\today}
+\author{Teoh Zhixiang}
+
+\maketitle
+
+\begin{Prob}(Ex. 3.2.5) Prove Theorem 3.2.8.
+\begin{Thm}[3.2.8]
+A set $F \subseteq \R$ is closed if and only if every Cauchy sequence contained in $F$ has a limit that is also an element of $F$.
+\end{Thm}
+
+\end{Prob}
+
+\begin{proof}
+We need to prove both directions.
+
+$(\implies)$. \textit{If for all Cauchy sequences $(a_n) \in F$, $\lim a_n = a \in F$, then $F \subseteq \R$ is closed.} Pick an arbitrary Cauchy sequence $(a_n) \in F$ with the property that $\lim a_n = a \in F$ as given. 
+\begin{Lm}[Theorem 3.2.5]
+A point $x$ is a limit point of a set $A$ if and only if $x = \lim a_n$ for some sequence $(a_n)$ contained in $A$ satisfying $a_n \neq x$ for all $n \in \N$.
+\end{Lm}
+\begin{Def}[Definition 3.2.7]
+A set $F \in \R$ is \textit{closed} if it contains its limit points.
+\end{Def}
+Either $a = a_n$ for some $n \in \N$ or $a \neq a_n$ for all $n \in \N$. If $a = a_n$ for some $n \in \N$, then $a \in F^{is}$ and $F$ is trivially closed. If $a \neq a_n$, then by Theorem 3.2.5 $a \in F^{lim}$, and since $a \in F$, given, by Definition 3.2.7, and considering that we picked an arbitrary $(a_n)$, we have shown $F$ closed.
+
+\begin{Lm}[Theorem 3.2.12]
+For any $A \in \R$, the closure $\overline{A}$ is a closed set and is the smallest closed set containing $A$.
+\end{Lm}
+
+$(\implied)$. \textit{If $F \in \R$ closed, then for all Cauchy sequences $(a_n) \in F$, $\lim a_n = a \in F$.} For $F$ to be closed, $F$ has to contain its limit points. Let $(a_n)$ be an arbitrary Cauchy sequence in $F$. By the Cauchy Condition, $(a_n) \to a$. Assume for contradiction that $a \not \in F$. Then $a \neq a_n \implies a \in F^{lim}$, by Theorem 3.2.5. But $F$ closed $\iff F = F \cup F^{lim}$ (by Theorem 3.2.12), so $a \in F^{lim} \implies a \in F$. Therefore our assumption that $a \not \in F$ contradicts the initial assumption that $F$ is closed, so by contradiction $a \in F$, and the proof is complete.
+
+\end{proof}
+
+\begin{Prob}(Ex. 3.2.11) 
+\begin{enumerate}
+    \item [(a)] Prove that $\overline{A \cup B} = \overline{A} \cup \overline{B}$.
+    \item [(b)] Does this result about closures extend to infinite unions of sets?
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] We will prove double inclusion.
+    
+    \begin{Lm}[Definition 3.2.11]
+    Given a set $A \in \R$, let $L$ be the set of all limit points of $A$. The \textit{closure} of $A$ is defined to be $\overline{A} = A \cup L$.
+    \end{Lm}
+    
+    \begin{Lm}
+    $A \subseteq B \implies \overline{A} \subseteq \overline{B}$.
+    \end{Lm}
+    
+    $(\subseteq)$. Pick $x \in \overline{A \cup B}$. By Definition 3.2.11, $x \in A \cup B$ or $x \in L(A \cup B)$. If $x \in A \cup B$, then by Lemma 6, $x \in \overline{A} \cup \overline{B}$, and we are done. If $x \in L(A \cup B)$, then by definition of limit points, $\exists V_\epsilon(x)$ such that $V_\epsilon(x) \cap (A \cup B) \neq \emptyset$. Then by De Morgan's Laws $(V_\epsilon(x) \cap A) \cup (V_\epsilon(x) \cap B) \neq \emptyset$, so either $x \in L(A)$ or $x \in L(B)$, or both; this means $x \in L(A) \cup L(B) \subseteq \overline{A} \cup \overline{B}$.
+    
+    $(\supseteq)$. Pick $x \in \overline{A} \cup \overline{B}$. This means $x \in \overline{A}$ or $x \in \overline{B}$, or both. By Lemma 6, $A \subseteq A \cup B \implies \overline{A} \subseteq \overline{A \cup B}$, and similarly $\overline{B} \subseteq \overline{A \cup B}$. Therefore $x \in \overline{A} \cup \overline{B} \subseteq \overline{A \cup B}$, and the proof is complete.
+    \item [(b)] No. Consider the following counterexample:
+    $$
+        \bigcup^\infty_{n \in \N}\overline{\{q_n : q_n \in \Q\}} = q_1 \cup q_2 \cup q_3 \cup \cdots = \Q,
+    $$
+    while
+    $$
+        \overline{\bigcup^\infty_{n \in \N}\{q_n : q_n \in \Q\}} = \overline{q_1 \cup q_2 \cup q_3 \cup \cdots} = \overline{\Q} = \R \neq \Q.
+    $$
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 3.2.12*) Let $A$ be an uncountable set and let $B$ be the set of real numbers that divides $A$ into two uncountable sets; that is, $s \in B$ if both $\{x : x \in A \text{ and } x < s\}$ and $\{x : x \in A \text{ and } x > s\}$ are uncountable. Show $B$ is nonempty and open.
+\end{Prob}
+
+\begin{proof}
+We first show $B$ is nonempty. Define
+$$
+    M = \min \{s \in \R : \{x : x \in A \text{ and } x > s\} \text{ is countable}\},
+$$
+where $M \neq -\infty$. Assume for contradiction $M = -\infty$, then
+$$
+    A = \bigcup_{z \in \Z} \{x : x \in A \text{ and } x > z\}
+$$
+is countable because each $\{x : x \in A \text{ and } x > z\}$ is countable and $\Z$ countable. But this is a contradiction with given criterion that $A$ is uncountable, so we know $M \neq -\infty$. Thus we have
+$$
+    \{x : x \in A \text{ and } x > M\}
+$$
+which is countable. With this $M$, we want to show that for some real number $\epsilon > 0$, 
+$$
+    \{x : x \in A \text{ and } x > M - \epsilon\}
+$$
+and
+$$
+    \{x : x \in A \text{ and } x < M - \epsilon\}
+$$
+are uncountable. Then we will have $s = M - \epsilon \in B$, nonempty. Assume for contradiction there exists no such $\epsilon$. This means for all $\epsilon > 0$,
+$$
+    \{x : x \in A \text{ and } x < M - \epsilon\}
+$$
+is countable. So by Archimedean Property, 
+$$
+    \{x : x \in A \text{ and } x < M\} = \bigcup_{n \in \N} \{x : x \in A \text{ and } x < M - \frac{1}{n}\}
+$$
+which is countable. But now notice
+$$
+    A = (\{x : x \in A \text{ and } x < M\} \cup \{M\} \cup \{x : x \in A \text{ and } x > M\})
+$$
+is countable since each of the three sets is countable, as have been shown. We have reached a contradiction with the criterion that $A$ is uncountable, which means there exists such an $\epsilon$ such that $s = M - \epsilon \in B$, and so $B$ not empty.
+
+Now we attempt to show $B$ open by showing that for an arbitrary $s \in B$, there exists $\epsilon > 0$ such that
+$$
+    \{x : x \in A \text{ and } x < s'\}
+$$
+is uncountable for all $s' \in (s-\epsilon, s)$. Assume for contradiction that $\{x : x \in A \text{ and } x < s'\}$ is countable for some $\epsilon$. Pick $\epsilon = \frac{1}{n}$, and
+$$
+    \{x : x \in A \text{ and } x < s - \frac{1}{n}\}
+$$
+is countable for all $n \in \N$. But then
+$$
+    \{x : x \in A \text{ and } x < s\} = \bigcup_{n=1} \{x : x \in A \text{ and } x < s - \frac{1}{n}\}
+$$
+is a countable union of countable sets and thus countable. This contradicts assumption that $\{x : x \in A \text{ and } x < s\}$ is uncountable, and so our assumption that $\{x : x \in A \text{ and } x < s'\}$ countable for some $\epsilon$ (and thus some $s' \in (s-\epsilon,s)$) is false. This means $B$ is open.
+
+\end{proof}
+
+
+\begin{Prob}(Ex. 3.3.8*) Let $K$ and $L$ be nonempty compact sets, and define
+$$
+    d = \inf \{|x-y| : x \in K \text{ and } y \in L\}.
+$$
+This turns out to be a reasonable definition for the \textit{distance} between $K$ and $L$.
+\begin{enumerate}
+    \item [(a)] If $K$ and $L$ are disjoint, show $d > 0$ and that $d = |x_0 - y_0|$ for some $x_0 \in K$ and $y_0 \in L$.
+    \item [(b)] Show that it's possible to have $d = 0$ if we assume only that the disjoint sets $K$ and $L$ are closed.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] Given $K, L$ disjoint, $K \cap L = \emptyset$. Note $d \geq 0$ by definition of absolute value $|\cdot|$. Assume for contradiction that $d = \inf\{|x-y|: x \in K, y \in L\} = 0$. This would mean that
+    $$
+        |x_0 - y_0| = 0 \implies x_0 = y_0
+    $$
+    for some $x_0 \in K$, $y_0 \in L$. But then this means
+    $$
+        \emptyset \neq x_0 = y_0 \in (K \cap L),
+    $$
+    contradicting the given initial assumption that $K, L$ disjoint. Hence $d \neq 0 \implies d > 0$. 
+    
+    Assuming $K,L$ nonempty, compact, by definition of compactness, we know that there are sequences $(x_n) \subseteq K$ and $(y_n) \subseteq L$ which have convergent subsequences $(x_{n_k}) \to x_0 \in K$ and $(y_{n_k}) \to y_0 \in L$ respectively. Then $|x_n - y_n| \to |x_0-y_0| = d$.
+    \item [(b)] By Heine-Borel Theorem we know compact sets are both closed and bounded. If we assume only that $K,L$ are disjoint and closed, but not bounded, consider the following counterexample:
+    $$
+        K = \Q^+, L = \R^+ \setminus \Q
+    $$
+    where both $K, L$ closed, disjoint, but
+    $$
+        d = \inf \{|x - y| : x \in K, y \in L\} = 0 \implies |x_0 - y_0| < \epsilon
+    $$
+    for all real number $\epsilon > 0$ is satisfied because $\Q$ dense in $\R$ ensures that for all $\epsilon > 0$, there exists a $|x(\epsilon)-y(\epsilon)| = |y(\epsilon)-x(\epsilon)| < \epsilon$. Thus it is possible that $d = \inf \{|x - y| : x \in K, y \in L\} = 0$.
+\end{enumerate}
+
+\end{proof}
+
+
+\begin{Prob}(Ex. 3.3.9) Follow these steps to prove the final implication ($(ii) \implies (iii)$) in Thm 3.3.8.
+\begin{Thm}[3.3.8 - Heine-Borel Theorem]
+Let $K$ be a subset of $\R$. All of the following statements are equivalent in the sense that any one of them implies the two others:
+\begin{enumerate}
+    \item [(i)] $K$ is compact.
+    \item [(ii)] $K$ is closed and bounded.
+    \item [(iii)] Every open cover for $K$ has a finite subcover.
+\end{enumerate}
+\end{Thm}
+
+Assume $K$ satisfies (i) and (ii), and let $\{O_\lambda : \lambda \in \Lambda\}$ be an open cover for $K$. For contradiction, let's assume that no finite subcover exists. Let $I_0$ be a closed interval containing $K$.
+\begin{enumerate}
+    \item [(a)] Show that there exists a nested sequence of closed intervals $I_0 \supseteq I_1 \supseteq I_2 \supseteq \cdots$ with the property that, for each $n$, $I_n \cap K$ cannot be finitely covered and $\lim |I_n| = 0$.
+    \item [(b)] Argue that there exists an $x \in K$ such that $x \in I_n$ for all $n$.
+    \item [(c)] Because $x \in K$, there must exist an open set $O_{\lambda_0}$ from the original collection that contains $x$ as an element. Explain how this leads to the desired contradiction.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] Define
+    $$
+        I_0 = [\inf K, \sup K] \supseteq K.
+    $$
+    With this $I_0$, $I_0 \cap K = K \neq \emptyset$. Because $K$ has no such finite subcover, if we divide $I_0$ into two equal halves, either $[\inf K, \frac{\inf K + \sup K}{2}]$ is infinite (and thus cannot be finitely covered) or $[\frac{\inf K + \sup K}{2}, \sup K]$ is infinite (and thus cannot be finitely covered). So, in a similar fashion construct $I_0 \supseteq I_1 \supseteq I_2 \supseteq \cdots \supseteq I_n \supseteq \cdots$ inductively with
+    $$
+    \begin{cases}
+        I_n \cap K \neq \emptyset \\
+        I_n \textbf{ cannot be finitely covered}\\
+        l(I_n) = \frac{l(I_0)}{2^n}
+    \end{cases}
+    $$
+    for each $I_n$, where $l(I_n)$ denotes the length of the set $I_n$. Then
+    $$
+        I_n = \frac{l(I_{n-1})}{2}
+    $$
+    with the desired properties. We see that
+    $$
+    \lim|I_n| = \lim l(I_n) = \lim_{n\to \infty} \frac{l(I_0)}{2^n} = 0.
+    $$
+    \item [(b)] For all $n \in \N$, $I_n \cap K$ is compact and nonempty; by Nested Interval Property, because $\lim|I_n| = 0$,
+    $$
+        \bigcap^\infty_{n=0} I_n = \bigcap^\infty_{n=0} (I_n \cap K) = \{x\},
+    $$
+    so there exists $x \in K$ such that $x \in I_n$ for all $n$.
+    \item [(c)] From part (b) we know
+    $$
+        \bigcap^\infty_{n=0} I_n = \{x\}.
+    $$
+    This means there exists $n_0 \in \N$ such that $x \in I_{n_0} \subseteq O_{\lambda_0}$, and for all $n \geq n_0$, $(I_n \cap K) \subseteq O_\lambda$. But this means that $I_n \cap K$ has a finite subcover, which contradicts our initial assumption (in part (a)) that $I_n \cap K$ has no finite subcover.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 3.3.11) Consider each of the sets listed in Exercise 3.3.2. For each one that is not compact, find an open cover for which there is no finite subcover.
+\begin{enumerate}
+    \item [(a)] $\N$.
+    \item [(b)] $\Q \cap [0,1]$.
+    \item [(c)] The Cantor set.
+    \item [(d)] $\{1 + 1/2^2 + 1/3^2 + \cdots + 1/n^2 : n \in \N\}$.
+    \item [(e)] $\{1,1/2,2/3,3/4,4/5,\ldots\}$.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] $\N$ closed, trivially, because the set $\N^{lim} = \emptyset$, but not bounded. Consider the open cover
+    $$
+        \bigcup_{n \in \N} O_n = \bigcup_{n \in \N} (n-\epsilon, n+\epsilon) = \bigcup_{n \in \N} (n-\frac{1}{2}, n+\frac{1}{2}),
+    $$
+    for a real number $\epsilon = \frac{1}{2} > 0$, that has no finite subcover because $\N$ unbounded. Assume there exists a finite subcover, i.e. there exists an $N \in \N$ such that
+    $$
+        \bigcup^N_{n=1} O_n = \bigcup^N_{n=1} (n-\frac{1}{2}, n+\frac{1}{2})
+    $$
+    is a finite subcover of $\N$. But then $N+1 \not \in \bigcup^N_{n=1} O_n$, contradicting our assumption that there exists a finite subcover; so there is no finite subcover of $\N$ for this open cover.
+    \item [(b)] $\Q \cap [0,1]$ is bounded with $\sup = 1$, $\inf = 0$, but not closed. Because $\Q$ dense in $\R$, there exists Cauchy sequence $(q_n) \in \Q \cap [0,1]$ such that $\lim q_n \in \R \setminus \Q$, which implies $\Q$ not closed by Theorem 3.2.8 (Problem 1). Now consider the open cover
+    $$
+        \bigcup_{n \in \N} O_n = \bigcup_{n \in \N} ((-1,s-\frac{1}{n}) \cup (s+\frac{1}{n},2)) = \bigcup_{n \in \N} ((-1,\frac{1}{\sqrt{2}}-\frac{1}{n}) \cup (\frac{1}{\sqrt{2}}+\frac{1}{n},2)),
+    $$
+    for irrational number $s \in [0,1]$. Assume there exists a finite subcover, i.e. there exists an $N \in \N$ such that
+    $$
+        \bigcup^N_{n=1} O_n = \bigcup^N_{n=1} ((-1,\frac{1}{\sqrt{2}}-\frac{1}{N}) \cup (\frac{1}{\sqrt{2}}+\frac{1}{N},2))
+    $$
+    is a finite subcover of $\Q \cap [0,1]$. But because $\Q$ dense in $\R$, there exists a rational number $q_N \in V_\frac{1}{\sqrt{2}}(\frac{1}{N})$ such that $\frac{1}{\sqrt{2}}-\frac{1}{N}< q_N < \frac{1}{\sqrt{2}}+\frac{1}{N}$; so $q \not \in \bigcup^N_{n=1} O_n$, contradicting our assumption. Thus there is no finite subcover of $\Q \cap [0,1]$.
+    \item [(d)] $\{1 + 1/2^2 + 1/3^2 + \cdots + 1/n^2 : n \in \N\}$ is bounded $\inf = 1$, $\sup = \frac{\pi^2}{6}$, but not closed because $\lim \sum^N_{n=1}1/n^2 = \frac{\pi^2}{6} \not \in \{1 + 1/2^2 + 1/3^2 + \cdots + 1/n^2 : n \in \N\}$. Consider the open cover
+    $$
+        \bigcup_{n \in \N} O_n = \bigcup_{n \in \N} (0, \sum^n_{i=1}\frac{1}{i^2}).
+    $$
+    Assume there exists a finite subcover, i.e. there exists an $N \in \N$ such that
+    $$
+        \bigcup^N_{n=1} O_n = \bigcup^N_{n=1} (0, \sum^n_{i=1}\frac{1}{i^2})
+    $$
+    is a finite subcover of $\{1 + 1/2^2 + 1/3^2 + \cdots + 1/n^2 : n \in \N\}$. But then $\sum^{N+1}_{i=1}\frac{1}{i^2} \not \in (0, \sum^{N}_{i=1}\frac{1}{i^2}) = \bigcup^N_{n=1} O_n$, i.e. not contained in finite subcover; contradicting our assumption. Thus there is no such finite subcover.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 3.4.6) Prove Theorem 3.4.6.
+\begin{Thm}[3.4.6]
+A set $E \subseteq \R$ is connected if and only if, for all nonempty disjoint sets $A$ and $B$ satisfying $E = A \cup B$, there always exists a convergent sequence $(x_n) \to x$ with $(x_n)$ contained in one of $A$ or $B$, and $x$ an element of the other.
+\end{Thm}
+\end{Prob}
+
+\begin{proof}
+We prove both implications.
+
+$(\implies)$. \textit{If for all nonempty disjoint sets $A$ and $B$ satisfying $E = A \cup B$, there always exists a convergent sequence $(x_n) \to x$ with $(x_n)$ contained in one of $A$ or $B$, and $x$ an element of the other, then $E \subseteq \R$ connected.}
+
+Let $A$, $B$ be nonempty disjoint sets, arbitrary, satisfying $E = A \cup B$. Without loss of generality, let $(x_n) \to x$ be a convergent sequence in $A$, with $x \in B$. By definition of limit point and closure we know $x \in \overline{A}$. Because $A \cap B = \emptyset$, we also know $x \not \in A$. From this we know $\overline{A} \cap B \neq \emptyset$. If instead we let $(x_n) \to x$, $(x_n) \in B$, $x \in A$, with a similar argument we can show $A \cap \overline{B} \neq \emptyset$. We have shown for all nonempty disjoint sets $A$ and $B$ satisfying $E = A \cup B$, $\overline{A} \cap B \neq \emptyset$ or $A \cap \overline{B} \neq \emptyset$, which is the logical negation of the definition of disconnected sets, also the definition of connected sets. Therefore $E = A \cup B$ is connected.
+
+$(\implied)$. \textit{If $E \subseteq \R$ is connected, then for all nonempty disjoint sets $A$ and $B$ satisfying $E = A \cup B$, there always exists a convergent sequence $(x_n) \to x$ with $(x_n)$ contained in one of $A$ or $B$, and $x$ an element of the other.}
+
+Given $E$ connected, by definition $\overline{A} \cap B \neq \emptyset$ or $A \cap \overline{B} \neq \emptyset$. Consider two cases:
+\begin{enumerate}
+    \item $x \in \overline{A} \cap B$. Since $A \cap B = \emptyset$, it must be that $x \in B$ and $x \in \overline{A}$; in particular $x \in L(A)$, where $L(A)$ denotes the set of limit points of $A$. By Theorem 3.2.5, there exists a convergent sequence $(x_n) \to x$ in $A$, with $x_n \neq x$ for all $n \in \N$, but $x \in B$.
+    \item $x \in A \cap \overline{B}$. In a very similar fashion it can be shown that there exists a convergent sequence $(x_n) \to x$ in $B$, with $x_n \neq x$ for all $n \in \N$, but $x \in A$.
+\end{enumerate}
+
+\end{proof}
+
+\hrule
+\centering{\textbf{Extra practice}}
+
+\begin{Prob}(Ex. 3.2.1**) 
+\begin{enumerate}
+    \item [(a)] Where in the proof of Theorem 3.2.3 part (ii) does the assumption that the collection of open sets be \textit{finite} get used?
+    \item [(b)] Give an example of a countable collection of open sets $\{O_1,O_2,O_3,\ldots\}$ whose intersection $\bigcap^\infty_{n=1}O_n$ is closed, not empty and not all of $\R$.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] Implicitly in the selection of a single neighborhood $\epsilon = \min\{\epsilon_1,\epsilon_2,\cdots,\epsilon_N\}$ contained in every $O_k$. In an infinite intersection of open sets, it is possible that $\epsilon = 0$ if selected in this manner. Consider the set of $\epsilon$-neighborhoods given by:
+    $$
+        \epsilon_k = \{\frac{1}{k} : k \in \N\}.
+    $$
+    The same selection would give us
+    $$
+        \epsilon = \min \{\bigcup^\infty_{k=1} \epsilon_k\} = 0,
+    $$
+    which would fail to produce a valid $\epsilon$-neighborhood with $\epsilon > 0$ as desired.
+    \item [(b)] Consider the collection of open sets given by
+    $$
+        O_n = (-\frac{1}{n}, \frac{1}{n})  
+    $$
+    with the arbitrary intersection
+    $$
+        \bigcap^\infty_{n=1} O_n = \{0\}
+    $$
+    which is trivially closed (singleton set), nonempty and not all of $\R$.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 3.2.3**) Decide whether the following sets are open, closed, or neither. If a set is not open, find a point in the set for which there is no $\epsilon$-neighborhood contained in the set. If a set is not closed, find a limit point that is not contained in the set.
+\begin{enumerate}
+    \item [(a)] $\Q$.
+    \item [(b)] $\N$.
+    \item [(c)] $\{x \in \R : x \neq 0\}$.
+    \item [(d)] $\{1 + 1/4 + 1/9 + \cdots + 1/n^2 : n \in \N\}$.
+    \item [(e)] $\{1 + 1/2 + 1/3 + \cdots + 1/n : n \in \N\}$.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] $\Q$ is neither open nor closed. $\Q$ not open: consider the point $\frac{1}{2}\in \Q$. Because $\Q$ dense in $\R$, between any two real numbers there exists a rational number; along this reasoning we also know $\R \setminus \Q$ dense in $\R$. Therefore there is no $V_\epsilon(\frac{1}{2}) \subseteq \Q$ for this point $\frac{1}{2}$, because there exists an $x \in \R \setminus \Q$ in any $V_\epsilon(\frac{1}{2})$. 
+    
+    $\Q$ not closed: consider the limit point $\sqrt{2} \in (\R \setminus \Q)$. Note every $\epsilon$-neighborhood $V_\epsilon(\sqrt{2})$ contains a rational number, therefore $\epsilon$-neighborhood $V_\epsilon(\sqrt{2}) \cap \Q \neq \emptyset$, so $\sqrt{2}$ is limit point of $\Q$, but $\sqrt{2} \not \in \Q$.
+    \item [(b)] $\N$ closed, not open. Consider the point $1 \in \N$. Then every $\epsilon$-neighborhood $V_\epsilon(1) \not \subseteq \N$ because there exists $x \in (1-\epsilon, 1+\epsilon)$ but not in $\N$.
+    \item [(c)] $\{x \in \R : x \neq 0\}$ open, not closed. Consider the limit point $0 \in \R \setminus \{0\}$. Note every $\epsilon$-neighborhood $V_\epsilon(0) \cap \R \setminus \{0\}$ at points other than $0$, but $0 \not \in \R \setminus \{0\}$.
+    \item [(d)] $\{1 + 1/4 + 1/9 + \cdots + 1/n^2 : n \in \N\}$ neither open nor closed. Not open: consider the point $1 + \frac{1}{\sqrt{2}}$ for which every $V_\epsilon(1+\frac{1}{\sqrt{2}}) \not \subseteq \{1 + 1/4 + 1/9 + \cdots + 1/n^2 : n \in \N\}$, since $1 + \frac{1}{\sqrt{2}} \not \in \{1 + 1/4 + 1/9 + \cdots + 1/n^2 : n \in \N\}$ for all $n \in \N$. 
+    
+    Not closed: consider the limit point $\frac{\pi^2}{6} = \lim \{1 + 1/4 + 1/9 + \cdots + 1/n^2 : n \in \N\} \not \in \{1 + 1/4 + 1/9 + \cdots + 1/n^2 : n \in \N\}$.
+    \item [(e)] $\{1 + 1/2 + 1/3 + \cdots + 1/n : n \in \N\}$ closed, not open. Consider the point $1$ for which every $V_\epsilon(1) \not \subseteq \{1 + 1/2 + 1/3 + \cdots + 1/n : n \in \N\}$, since there exist $x \in (1-\epsilon, 1+\epsilon)$ but not in $\{1 + 1/2 + 1/3 + \cdots + 1/n : n \in \N\}$.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 3.2.6**) Decide whether the following statements are true or false. Provide counterexamples for those that are false, and supply proofs for those that are true.
+\begin{enumerate}
+    \item [(a)] An open set that contains every rational number must necessarily be all of $\R$.
+    \item [(b)] The Nested Interval Property remains true if the term ``closed interval" is replaced by ``closed set".
+    \item [(c)] Every nonempty open set contains a rational number.
+    \item [(d)] Every bounded infinite closed set contains a rational number.
+    \item [(e)] The Cantor set is closed.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] False. Consider the open set
+    $$
+        O = \R \setminus \{\sqrt{2}\}
+    $$
+    that contains every rational number but is not all of $\R$. Note $O$ open since $O^c = \{2\}$ closed.
+    \item [(b)] False. Consider the collection of nested closed (but not bounded) sets given by
+    $$
+        A_n = [n,\infty)
+    $$
+    for all $n \in \N$. Notice
+    $$
+        \bigcap^\infty_{n=1} A_n = \emptyset.
+    $$
+    This has been proven (Example 1.2.2, Textbook).
+    \item [(c)] True. Call this set $O$. By definition of open set, for all points $a \in O$ there exists $\epsilon$-neighborhood $V_\epsilon(a) \subseteq O$, i.e. $(a-\epsilon, a+ \epsilon) \subseteq O$. Because $\Q$ dense in $\R$, for every such $V_\epsilon(a) = (a-\epsilon, a+ \epsilon)$, we know
+    $$
+        a - \epsilon < q < a + \epsilon
+    $$
+    for some rational number $q \in \Q$; therefore $q \in V_\epsilon(a) \subseteq O \implies q \in O$.
+    \item [(d)] False. Consider the set
+    $$
+        A = \{\sqrt{2} + \frac{1}{n} : n \in \N\} \cup \sqrt{2}
+    $$
+    that is infinite and bounded with $\sup = \sqrt{2} + 1$, $\inf = \sqrt{2}$, and does not contain a rational number. Note this set is closed because it contains its limit point $\lim A = \sqrt{2}$.
+    \item [(e)] True. 
+    \begin{Lm}[Theorem 3.2.14]
+    \begin{enumerate}\;
+        \item [(i)] The union of a finite collection of closed sets is closed.
+        \item [(ii)] The intersection of an arbitrary collection of closed sets is closed.
+    \end{enumerate}
+    \end{Lm}
+    We know each $C_n$ in the construction of the Cantor set is a closed interval (which is closed), and by Theorem 3.2.14(ii), we know the Cantor set
+    $$
+        C = \bigcap^\infty_{n=0} C_n
+    $$
+    is closed.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 3.2.10**) Only one of the following three descriptions can be realized. Provide an example that illustrates the viable description, and explain why the other two cannot exist.
+\begin{enumerate}
+    \item [(i)] A countable set contained in $[0,1]$ with no limit points.
+    \item [(ii)] A countable set contained in $[0,1]$ with no isolated points.
+    \item [(iii)] A set with an uncountable number of isolated points.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(i)] Such a set cannot exist. Any countable set contained in $[0,1]$ is bounded, and by Bolzano-Weierstrass Theorem this set contains a convergent subsequence converging to a limit that is also in the set. By Theorem 3.2.5 definition of limit points, there exists at least a limit point in this set.
+    \item [(ii)] This is viable. Consider the countable set
+    $$
+        A = \Q \cap [0,1]
+    $$
+    that contains no isolated points. Assume for contradiction that there exists an isolated point $a \in A$ which, by definition, is not a limit point, i.e. for all $V_\epsilon(a)$, $V_\epsilon(a) \cap A = \{a\}$. But by density of $\Q$ in $\R$ we know that there exists a rational number $a \neq q \in V_\epsilon(a)$ and therefore it is not possible that $V_\epsilon(a)$ intersects $A$ only at $a$. Therefore there exists no such isolated point. Note that $A$ is countable because $A \subseteq \Q$ which is countable.
+    \item [(iii)] No such set exists. By Density of $\Q$ in $\R$, we can enumerate each isolated point in any set by a corresponding $q \in \Q$ in the $\epsilon$-neighborhood of each such isolated point. For a set $A$, call each isolated point $a_n$. For each $a_n$ there exists an $\epsilon$-neighborhood $V_{\epsilon_n}(a_n)$ such that $V_{\epsilon_n}(a_n) \cap A = \{a_n\}$, by definition of isolated point. With this, for each such $V_{\epsilon_n}(a_n)$, there exist at least one corresponding $q_n \in \Q$ with $q_n \in V_{\epsilon_n}(a_n)$. So the set of isolated points $\{a_n : n \in \N\}$ is countable by $q_n$.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 3.3.4**) Assume $K$ is compact and $F$ is closed. Decide if the following sets are definitely compact, definitely closed, both, or neither.
+\begin{enumerate}
+    \item [(a)] $K \cap F$
+    \item [(b)] $\overline{{F^c \cup K^c}}$
+    \item [(c)] $K \backslash F = \{x\in K : x \not \in F\}$
+    \item [(d)] $\overline{K \cap F^c}$
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] Both definitely compact and definitely closed. By Heine-Borel Theorem, $K$ is compact $\implies K$ is closed and bounded. $K \cap F$ is definitely closed because intersection of two closed sets is closed. $K \cap F$ is bounded, because $K$ is bounded. Therefore $K \cap F$ definitely bounded and, since also definitely closed, is definitely compact.
+    \item [(b)] Definitely closed but not definitely compact. $\overline{{F^c \cup K^c}}$ is definitely closed because closure of any set is closed. Because $K$ is closed and bounded (compact), $K^c$ is open and unbounded. Therefore $F^c \cup K^c$ is unbounded, and not compact. This means $\overline{F^c \cup K^c}$ is not compact.
+    \item [(c)] Neither definitely compact nor definitely closed. $K \setminus F$ is bounded, because $K$ is bounded, but $K \setminus F$ not necessarily closed. Consider
+    $$
+        K = [0,2], F = \N.
+    $$
+    Then $K \setminus F = [0,2] \setminus \{1,2\}$ which is not closed because $1,2 \in [0,2]$ are limit points of $K$.
+    \item [(d)] Both definitely compact and definitely closed. $\overline{K \cap F^c}$ is definitely closed because closure of any set is closed. $\overline{K \cap F^c}$ is bounded because $K$ is bounded and so $K \cap F^c$ is bounded. Because $\overline{K \cap F^c}$ closed and bounded, $\overline{K \cap F^c}$ is compact.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 3.3.5**) Decide whether the following propositions are true or false. If the claim is valid, supply a short proof, and if the claim is false, provide a counterexample.
+\begin{enumerate}
+    \item [(a)] The arbitrary intersection of compact sets is compact.
+    \item [(b)] The arbitrary union of compact sets is compact.
+    \item [(c)] Let $A$ be arbitrary, and let $K$ be compact. Then, the intersection $A \cap K$ is compact.
+    \item [(d)] If $F_1 \supseteq F_2 \supseteq F_3 \supseteq F_4 \supseteq \cdots$ is a nested sequence of nonemepty closed sets, then the intersection $\bigcap^\infty_{n=1}F_n \neq \emptyset$.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] True. By Theorem 3.2.14, an arbitrary intersection of closed sets is closed. By Heine-Borel Theoerem, compact sets are closed and bounded, so arbitrary intersection of compact sets is closed. The arbitrary intersection of bounded sets is naturally bounded, so together the arbitrary intersection of compact sets is closed and bounded, and therefore compact.
+    \item [(b)] False. A corollary of Theorem 3.2.14 is that the arbitrary union of closed sets is not necessarily closed. Consider
+    $$
+        A_n = [n,n+1]
+    $$
+    for each $n \in \N$, that is closed and bounded (compact). But then
+    $$
+        \bigcup^\infty_{n=1} A_n = [1,\infty)
+    $$
+    is not bounded, and therefore not compact.
+    \item [(c)] False. Consider
+    $$
+        A = (0,1), K = [0,1].
+    $$
+    But $A \cap K = (0,1)$ is bounded but not closed, and so $A \cap K$ not compact.
+    \item [(d)] False. Consider
+    $$
+        F_n = [n,\infty)
+    $$
+    for each $n \in \N$. $F_n$ is closed, but
+    $$
+        \bigcap^\infty_{n=1} F_n = \emptyset.
+    $$
+    This is a known result from Example 1.2.2, Textbook.
+\end{enumerate}
+
+\end{proof}
+
+\end{document}

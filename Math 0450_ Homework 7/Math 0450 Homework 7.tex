@@ -1,0 +1,585 @@
+\documentclass[11pt,twoside, reqno]{amsart}
+\usepackage{cancel}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{enumitem}
+% \usepackage{pgfplots}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%packages%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%formatting%%%%%%%%%%%%%%%%%%
+
+\setlength{\topmargin}{0in} 
+\setlength{\oddsidemargin}{0in}   
+\setlength{\evensidemargin}{0in}  
+\setlength{\textheight}{8.5in}    
+\setlength{\textwidth}{6.5in}  
+\setlength{\headsep}{0.5in}   
+\setlength{\headheight}{0in}
+\parskip=4pt 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%formatting%%%%%%%%%%%%%%%%%%
+
+\newtheorem{Thm}{Theorem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Lm}[Thm]{Lemma}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Cor}[Thm]{Corollary}
+
+
+\theoremstyle{remark}
+\newtheorem{Rem}[Thm]{Remark}
+\newtheorem{Exp}[Thm]{Example}
+\newtheorem{Prob}{Problem}
+
+%\numberwithin{equation}{section}
+
+
+
+\def\R{\mathbb R}
+\def\Q{\mathbb Q}
+\def\N{\mathbb N}
+\def\Z{\mathbb Z}
+
+
+%%%%%%%%%%%%%%%%logical connectors%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\OR}{\vee}
+\newcommand{\AND}{\wedge}
+\renewcommand{\implies}{\Rightarrow}
+\newcommand{\implied}{\Leftarrow}
+\renewcommand{\iff}{\Leftrightarrow}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{Math 0450: Homework 7}
+\date{\today}
+\author{Teoh Zhixiang}
+
+\maketitle
+
+\begin{Prob}(Ex. 2.4.6 (Arithmetic-Geometric Mean))
+\begin{enumerate}
+    \item [(a)] Explain why $\sqrt{xy} \leq (x+y)/2$ for any two positive real numbers $x$ and $y$. (The geometric mean is always less than the arithmetic mean.
+    \item [(b)] Now let $0 \leq x_1 \leq y_1$ and define
+    $$
+        x_{n+1} = \sqrt{x_ny_n} \text{ and } y_{n+1} = \frac{x_n+y_n}{2}.
+    $$
+    Show $\lim x_n$ and $\lim y_n$ both exist and are equal.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] We know
+    $$
+        0 \leq (x+y)^2 - 4xy,
+    $$
+    so 
+    \begin{align*}
+        4xy &\leq (x+y)^2\\
+        \implies 2\sqrt{xy} &\leq x+y\\
+        \iff \sqrt{xy} &\leq \frac{x+y}{2}.
+    \end{align*}
+    \item [(b)] We are given $0 \leq x_1 \leq y_1$, and $x_{n+1} = \sqrt{x_ny_n}$, $y_{n+1} = \frac{x_n+y_n}{2}$. By part (a),
+    $$
+        x_{n+1} = \sqrt{x_ny_n} \leq \frac{x_n + y_n}{2} = y_{n+1},
+    $$
+    i.e. $x_n \leq y_n$ for all $n \in \N$. Because $y_n \geq x_n \geq 0$,
+    $$
+        x_{n+1} = \sqrt{x_ny_n} \geq \sqrt{x_nx_n} = x_n,
+    $$
+    and so $(x_n)$ is an increasing sequence. By a similar argument,
+    $$
+        y_{n+1} = \frac{x_n+y_n}{2} \leq \frac{y_n+y_n}{2} = y_n,
+    $$
+    and so $(y_n)$ is a decreasing sequence. Because $(x_n)$ increasing and $(y_n)$ decreasing, and $x_n \leq y_n$ for all $n \in \N$, naturally $(x_n)$ is bounded above and $(y_n)$ bounded below. So $(x_n)$ and $(y_n)$ converge, and $\lim x_n$ and $\lim y_n$ exist.
+    
+    Let $\lim x_n = L$. Because $(x_n)$ increasing and bounded above by $L$, $x_n \leq L$ for all $n \in \N$. We know $x_n \leq y_n$ for all $n \in \N$, so $y_n \geq L$. Therefore, for $\epsilon > 0$,
+    $$
+        y_n - L \leq L-L = 0 < \epsilon,
+    $$
+    and
+    $$
+        y_n - L \geq y_n - y_n = 0 > -\epsilon.
+    $$
+    So
+    \begin{align*}
+        -\epsilon < y_n - L &< \epsilon \\
+        \implies |y_n - L| &< \epsilon
+    \end{align*}
+    which by definition means $\lim y_n = L = \lim x_n$.
+\end{enumerate}
+\end{proof}
+
+\begin{Prob}(Ex. 2.4.7 (Limit Superior)) Let $(a_n)$ be a bounded sequence.
+\begin{enumerate}
+    \item [(a)] Prove that the sequence defined by $y_n = \sup \{a_k : k \geq n\}$ converges.
+    \item [(b)] The \textit{limit superior} of $(a_n)$, or $\lim \sup a_n$, is defined by
+    $$
+        \lim \sup a_n = \lim y_n,
+    $$
+    where $y_n$ is the sequence from part $(a)$ of this exercise. Provide a reasonable definition for $\lim \inf a_n$ and briefly explain why it always exists for any bounded sequence.
+    \item [(c)] Prove that $\lim \inf a_n \leq \lim \sup a_n$ for every bounded sequence, and give an example of a sequence for which the inequality is strict.
+    \item [(d)] Show that the $\lim \inf a_n = \lim \sup a_n$ if and only if $\lim a_n$ exists. In this case, all three share the same value.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] Because $(a_n)$ bounded, by definition $S \leq a_n \leq T$ for all $n \in \N$. Because $\{a_k : k \geq n+1\} \subseteq \{a_k : k \geq n\}$ for all $n \in \N$, $y_{n+1} = \sup\{a_k : k \geq n+1\} \leq \sup\{a_k : k \geq n\} = y_n \leq T$. So $(y_n)$ is a decreasing sequence, and bounded; by Monotone Convergence Theorem $(y_n)$ converges.
+    \item [(b)] Define $x_n = \inf a_n = \inf \{a_k : k \geq n\}$, and consequently $\lim x_n = \lim \inf \{a_k : k \geq n\}$. Because $(a_n)$ bounded, $\exists \inf a_n \in \R$. $\{a_k : k \geq n+1\} \subseteq \{a_k : k \geq n\}$ for all $n \in \N$, $x_{n+1} = \sup\{a_k : k \geq n+1\} \geq \sup\{a_k : k \geq n\} = x_n \geq S$. So $(x_n)$ is an increasing sequence, and bounded; by Monotone Convergence Theorem $(x_n)$ always converges, and $\lim \inf a_n = \lim x_n$ always exists.
+    \item [(c)] For every bounded sequence $(a_n)$, $\inf \{a_k : k \geq k\} \leq \sup \{a_k : k \geq n\}$, and by Order Limit Theorem $\lim \inf \{a_k : k \geq n\} = \lim \inf a_n \leq \lim \sup a_n = \lim \sup \{a_k : k \geq n\}$.
+    
+    For an example where the inequality is strict consider the sequence given by $a_n = (-1)^n$ for all $n \in \N$. For this example $\lim \inf a_n = -1 < 1 = \lim \sup a_n$.
+    \item [(d)] $(\implies)$ \textit{If $\lim a_n$ exists then $\lim \inf a_n = \lim \sup a_n$.} Let $L = \lim a_n$. By definition for all $\epsilon > 0$, there exists $N \in \N$ such that for all $n \geq N$, 
+    $$
+        |a_n - L| < \epsilon.
+    $$
+    By definition of $\sup a_n$ and $\inf a_n$, for $k \geq n \geq N$,
+    $$
+        |x_n - L| = |\inf \{a_k\} - L| < \epsilon
+    $$
+    and
+    $$
+        |y_n - L| = |\sup \{a_k\} - L| < \epsilon.
+    $$
+    So $\lim \inf a_n = L = \lim a_n = \lim \sup a_n$.
+    
+    $(\implied)$ \textit{If $\lim \inf a_n = \lim \sup a_n$ then $\lim a_n$ exists.} For all $a_n$, 
+    $$
+        \inf \{a_k : k \geq n\} = x_n \leq a_n \leq y_n = \sup \{a_k : k \geq n\}.
+    $$
+    By Order Limit Theorem, 
+    $$
+        \lim x_n \leq \lim a_n \leq \lim y_n.
+    $$
+    and $\lim a_n$ exists. Given $\lim x_n = \lim y_n$, $\lim a_n$ by Squeeze Theorem.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 2.5.5) Assume $(a_n)$ is a bounded sequence with the property that every convergent subsequence of $(a_n)$ converges to the same limit $a \in \R$. Show that $(a_n)$ must converge to $a$.
+\end{Prob}
+
+\begin{proof}
+Given $(a_n)$ is a bounded sequence, for subsequences $x_n = \inf \{a_k : k \geq n\}$ and $y_n = \sup \{a_k : k \geq n\}$, we know $\lim x_n = \lim y_n = a$ exist. By equivalence relation in Exercise $2.4.7$ (Limit Superior), $\lim x_n = \lim y_n \iff \lim a_n$, and so $\lim a_n = a$ exists.
+
+\end{proof}
+
+
+\begin{Prob}(Ex. 2.7.1) Proving the Alternating Series Test (Theorem 2.7.7) amounts to showing that the sequence of partial sums
+$$
+    s_n = a_1 - a_2 + a_3 - \cdots \pm a_n
+$$
+converges. (The opening example in Section 2.1 includes a typical illustration of $(s_n)$). Different characterizations of completeness lead to different proofs.
+\begin{enumerate}
+    \item [(a)] Prove the Alternating Series Test by showing that $(s_n)$ is a Cauchy sequence.
+    \item [(b)] Supply another proof for this result using the Nested Interval Property (Theorem 1.4.1).
+    \item [(c)] Consider the subsequences $(s_2n)$ and $(s_{2n+1})$, and show how the Monotone Convergence Theorem leads to a third proof for the Alternating Series Test.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] The sequence $(s_n)$ is Cauchy if for all $\epsilon > 0$, there exists an $N \in \N$ such that for all $m,n \geq N$, 
+    $$
+        |s_n - s_m| < \epsilon.
+    $$
+    We have 
+    $$
+        s_m = a_1 - a_2 + a_3 - \cdots \pm a_m, 
+    $$
+    and
+    $$
+        s_n = a_1 - a_2 + a_3 - \cdots \pm a_m \mp a_{m+1} \pm a_{m+2} - \cdots \pm a_n.
+    $$
+    Then
+    $$
+        s_n - s_m = \mp a_{m+1} \pm a_{m+2} - \cdots \pm a_n
+    $$
+    Assume, without loss of generality, that the term in $a_{m+1}$ has a negative coefficient. Then
+    \begin{align*}
+        |s_n - s_m| &= |-a_{m+1} + a_{m+2} - \cdots + a_n| \\
+        &\leq |a - a_{m+1}| + |a_{m+2} - a| + \cdots + |a_n - a| \\
+        &= |-a_{m+1}| + |a_{m+2}| + \cdots + |a_n|\\
+        &< \underbrace{\frac{\epsilon}{n-(m\cancel{+1)}\cancel{+1}} + \frac{\epsilon}{n-m} + \cdots + \frac{\epsilon}{n-m}}_{\text{$n-m$ terms}}\\
+        &= \epsilon,
+    \end{align*}
+    given $(a_n) \to 0$ and $|a_n| < \frac{\epsilon}{n-m} > 0$ for all $n \geq N$. So we have shown $|s_n - s_m| < \epsilon$ for all $n \geq m \geq N$, meaning $(s_n)$ Cauchy. By Cauchy-Convergence equivalence, $(s_n)$ converges and we have proven Alternating Series Test.
+    \item [(b)] If $n$ odd,
+    \begin{align*}
+        s_n &= a_1 - a_2 + a_3 - \cdots + a_n, \\
+        s_{n+1} &= a_1 - a_2 + a_3 - \cdots + a_n - a_{n+1} < s_n.
+    \end{align*}
+    If $n$ even,
+    \begin{align*}
+        s_n &= a_1 - a_2 + a_3 - \cdots - a_n, \\
+        s_{n+1} &= a_1 - a_2 + a_3 - \cdots - a_n + a_{n+1} > s_n.
+    \end{align*}
+    Interestingly, because $2n$ even,
+    $$
+        s_{2n} = a_1 - a_2 + \cdots + a_{2n} \leq a_1 - a_2 + \cdots + a_{2n} - a_{2n+1} + a_{2n+2} = s_{2(n+1)}
+    $$
+    so $s_{2n} \leq s_{2n+2}$ since $a_n \geq 0$ and $a_i \geq a_{j}$ for all $n \in \N$ and $i < j \in \N$. Similarly, $s_{2n-1} \geq s_{2n+1}$, where $2n-1$ and $2n+1$ are odd.
+    
+    Ultimately we have
+    $$
+        s_2 \leq s_4 \leq \cdots \leq s_{2n} \leq \cdots \leq s_{2n+1} \leq s_{2n-1} \leq \cdots \leq s_3 \leq s_1.
+    $$
+    Define the interval $I_n = [s_{2n},s_{2n+1}]$. Since intervals are nested as shown above, $I_1 = [s_2, s_3] \supseteq I_2 = [s_4, s_5] \supseteq \cdots \supseteq I_n$, by Nested Interval Property $I = \cap^\infty_{n=1} I_n \neq 0$. This means there exists an element $s \in I$. Suppose for contradiction that there exists an $\epsilon$-neighborhood $V_\epsilon(L) \in I$ for all $\epsilon > 0$. But then since $(a_n) \to 0$, we can pick an $n \geq$ some $N \in \N$ such that $|a_{2n+1} - 0| = |s_{2n+1} - s_{2n}| < \epsilon$. But this means that there is no such $\epsilon$-neighborhood $V_\epsilon(L) \in I$, meaning $I = {L}$. Therefore $s_{2n},s_{2n+1} \to L$. Because $s_n = s_{2n} \cup s_{2n+1}$, $s_n \to L$ and we have proven Alternating Series Test.
+    \item [(c)] By part (b), $s_{2n} \leq s_{2(n+1)}$, and $s_{2n}$ is a monotonic increasing sequence. $s_{2n-1} \leq s_{2n+1}$, and $s_{2n+1}$ is a monotonic decreasing sequence. Also from part (b), we have
+    $$
+        s_2 \leq s_4 \leq \cdots \leq s_{2n} \leq \cdots \leq s_{2n+1} \leq s_{2n-1} \leq \cdots \leq s_3 \leq s_1,
+    $$
+    and so $s_{2n}$ and $s_{2n+1}$ bounded. Therefore $s_{2n}$ and $s_{2n+1}$ both convergent. By definition, for all $\epsilon_1, \epsilon_2 > 0$, there exist $N_1, N_2 \in \N$ such that for $n \geq N_1, N_2$ respectively, $|s_{2n} - L_1| < \epsilon_1$, $|s_{2n+1} - L_2| < \epsilon_2$. Additionally,
+    $$
+        s_{2n+1} - s_{2n} = a_{2n+1},
+    $$
+    and if $s_{2n}, s_{2n+1}$ convergent so is $a_{2n+1}$, by Algebraic Limit Theorem, and so for all $\epsilon_3 > 0$, there exists $N_3 \in \N$ such that for all $n \geq N_3$, $|a_{2n+1}| = |s_{2n+1} - s_{2n}| > \epsilon_3$ (given $(a_n) \to 0$). We want to show $L_1 = L_2 \iff |L_1 - L_2| \leq \epsilon$ for all $\epsilon > 0$. Fix $\epsilon_1,\epsilon_2,\epsilon_3 = \frac{\epsilon}{3} > 0$. For $n \geq \max\{N_1,N_2,N_3\}$,
+    \begin{align*}
+        |L_1 - L_2| &\leq |L_1 - s_{2n}| + |s_{2n} - s_{2n+1}| + |s_{2n+1} - L_2| \\
+        &= |s_{2n} - L_1| + |s_{2n+1} - s_{2n}| + |s_{2n+1} - L_2| \\
+        &< \frac{\epsilon}{3} + \frac{\epsilon}{3} + \frac{\epsilon}{3} \\
+        &= \epsilon
+    \end{align*}
+    and so $L_1 = L_2 = L$. Similar to part (b), because $s_n = s_{2n} \cup s_{2n+1}$, $s_n \to L$ and we have proven Alternating Series Test.
+\end{enumerate}
+\end{proof}
+
+
+\begin{Prob}(Ex. 2.7.9) Given a series $\sum^\infty_{n=1}a_n$ with $a_n \neq 0$, the Ratio Test states that if $(a_n)$ satisfies
+$$
+    \lim |\frac{a_{n+1}}{a_n}| = r < 1,
+$$
+then the series converges absolutely.
+\begin{enumerate}
+    \item [(a)] Let $r'$ satisfy $r < r' <1$. Explain why there exists an $N$ such that $n \geq N$ implies $|a_{n+1}| \leq |a_n|r'$.
+    \item [(b)] Why does $|a_N|\sum (r')^n$ converge?
+    \item [(c)] Now, show that $\sum |a_n|$ converges, and conclude that $\sum a_n$ converges.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] $\lim |\frac{a_{n+1}}{a_n}| = r < r' < 1$, by definition of limit of sequence, for all $\epsilon > 0$, there exists $N \in \N$ such that for all $n \geq N$,
+    \begin{align*}
+        ||\frac{a_{n+1}}{a_n}| - r| &< \epsilon \\
+        \implies r - \epsilon < |\frac{a_{n+1}}{a_n}| &< r+ \epsilon.
+    \end{align*}
+    Since $r < r'$, pick $\epsilon = r' - r > 0$. Then
+    $$
+        |\frac{a_{n+1}}{a_n}| < r + r' - r = \epsilon.
+    $$
+    So for this $N$, $n \geq N$ implies $\frac{|a_{n+1}|}{|a_n|} < r' \implies |a_{n+1}| < |a_n|r'$.
+    \item [(b)] Because $a_n \neq 0, \forall n \in \N$, notice that $\sum (r')^n$ is an infinite geometric series with $0 < r < r' < 1$. Therefore $\sum (r')^n$ converges, and in particular $|a_N|\sum(r')^n$ converges.
+    \item [(c)] To show $\sum |a_n|$ converges, we will use Comparison Test to show $\sum |a_n| (r')^n$ converges, and therefore because $0 < \sum |a_n| < \sum |a_n| (r')^n$, $\sum |a_n|$ also converges. Note
+    $$
+        \sum |a_n| = \sum_{n=1}^N |a_n| + \sum_{n = N+1}^\infty |a_n|.
+    $$
+    By part (a), for $n \geq N$,
+    $$
+        |a_{n+1}| \leq |a_n|(r')^{n+1-n}.
+    $$
+    We need $|a_n| \leq |a_N|(r')^{n-N}$, and we attempt to prove it by induction. Initial check: for $n = N+1$, $|a_{N+1}| \leq |a_N|(r')^{N+1-N} = |a_N|(r')$ true. Assume $|a_n| \leq |a_{N}|(r')^{n-N}$ true, then
+    $$
+        |a_{n+1}| < |a_n|r' \leq |a_{N}|(r')^{n-N}\cdot r' = |a_N|(r')^{n+1 - N}
+    $$
+    and so true for $n+1$, therefore true for all $n \geq N+1$.
+    Applying this, we have
+    $$
+        \sum_{n=N+1}^\infty |a_n| \leq \sum_{n=N+1}^\infty |a_N|(r')^{n-N} = |a_N|\sum_{n=N+1}^\infty (r')^{n-N}.
+    $$
+    By part (b), $|a_N| \sum^\infty_{n=N+1} (r')^{n-N}$ convergent, so $\sum^\infty_{n=N+1} |a_n|$ convergent, and consequently $\sum |a_n|$ convergent because limit of series not dependent on $N$-finitely many terms. Therefore, since series converges absolutely, by Absolute Convergence Test $\sum a_n$ converges.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 2.7.11*) Find examples of two series $\sum a_n$ and $\sum b_n$ both of which diverge but for which $\sum \min \{a_n,b_n\}$ converges. To make it more challenging, produce examples where $(a_n)$ and $(b_n)$ are strictly positive and decreasing.
+\end{Prob}
+
+\begin{proof} (Please discuss this in class!!!)
+Our goal is to find two sequences $(a_n)$ and $(b_n)$ such that $\min\{a_n,b_n\} = \frac{1}{n^2}$, but with $(a_n),(b_n)$ strictly positive, decreasing, and $\sum a_n$ and $\sum b_n$ divergent.
+
+Consider $(a_n)$ and $(b_n)$ that are interdependent:
+$$
+    a_n = (\mathbf{\frac{1}{1^2}},\frac{1}{2^2},\underbrace{\mathbf{\frac{1}{3^2}, \frac{1}{3^2}, \frac{1}{3^2}}}_\text{$3$ terms},\frac{1}{6^2},\frac{1}{7^2}, \cdots, \frac{1}{14^2}, \underbrace{\mathbf{\frac{1}{15^2}, \cdots,\frac{1}{15^2}}}_\text{$57$ terms}, \frac{1}{72^2}, \cdots, \frac{1}{(n-1)^2}, \underbrace{\overline{\mathbf{\frac{1}{n^2}}}}_\text{$m$ terms}, \cdots),
+$$
+decreasing, where $m \in \N$ minumum such that $m(\frac{1}{n^2}) \geq \frac{1}{2^2} = \frac{1}{4}$, and
+$$
+    b_n = (\frac{1}{1^2},\mathbf{\frac{1}{2^2}},\frac{1}{3^2},\frac{1}{4^2},\frac{1}{5^2}, \underbrace{\mathbf{\frac{1}{6^2},\cdots,\frac{1}{6^2}}}_\text{$6$ terms}, \frac{1}{15^2}, \cdots, \frac{1}{71^2}, \underbrace{\overline{\mathbf{\frac{1}{72^2}}}}_\text{$1296$ terms}, \frac{1}{1368^2}, \cdots, \underbrace{\overline{\mathbf{\frac{1}{(n-1)^2}}}}_\text{$m$ terms}, \frac{1}{n^2}, \cdots).
+$$
+decreasing. Note both $(a_n)$ and $(b_n)$ strictly positive by Archimedean Property. Then
+$$
+    \sum a_n = \mathbf{\frac{1}{1^2}} + \frac{1}{2^2} + \underbrace{\mathbf{\frac{1}{3^2} + \frac{1}{3^2} + \frac{1}{3^2}}}_\text{$3$ terms} + \frac{1}{6^2} + \frac{1}{7^2} + \cdots + \frac{1}{14^2} + \cdots + \frac{1}{(n-1)^2} + \underbrace{\overline{\mathbf{\frac{1}{n^2}}}}_\text{$m$ terms} + \cdots
+$$
+and
+$$
+    \sum b_n = \frac{1}{1^2} + \mathbf{\frac{1}{2^2}} + \frac{1}{3^2} + \frac{1}{4^2} + \frac{1}{5^2} + \underbrace{\mathbf{\frac{1}{6^2} + \cdots + \frac{1}{6^2}}}_\text{$6$ terms} + \frac{1}{15^2} +  \cdots + \underbrace{\overline{\mathbf{\frac{1}{(n-1)^2}}}}_\text{$m$ terms} + \frac{1}{n^2} + \cdots
+$$
+diverge, but $\min \{a_n, b_n\} = \frac{1}{n^2}$ converge.
+
+\end{proof}
+
+\begin{Prob}(Ex. 2.7.13* (Abel's Test)) Abel's Test for convergence states that if the series $\sum^\infty_{k=1}x_k$ converges, and if $(y_k)$ is a sequence satisfying
+$$
+    y_1 \geq y_2 \geq y_3 \geq \cdots \geq 0,
+$$
+then the series $\sum^\infty_{k=1}x_ky_k$ converges.
+\begin{enumerate}
+    \item [(a)] Use Exercise 2.7.12 to show that
+    $$
+        \sum\limits_{k=1}^n x_ky_k = s_ny_{n+1} + \sum\limits_{k=1}^n s_k(y_k - y_{k+1}),
+    $$
+    where $s_n = x_1 + x_2 + \cdots + x_n$.
+    \item [(b)] Use the Comparison Test to argue that $\sum^\infty_{k=1}s_k(y_k-y_{k+1})$ converges absolutely, and show how this leads directly to a proof of Abel's Test.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] Applying result from Exercise 2.7.12, taking $m = 1$, let $j = k$, we have
+    \begin{align*}
+        \sum\limits_{k=1}^n x_ky_k &= s_ny_{n+1} + s_{1-1}y_1 + \sum\limits_{k=1}^n s_k(y_k - y_{k+1}) \\
+        &= s_ny_{n+1} + \cancel{s_0y_1} + \sum\limits_{k=1}^n s_k(y_k - y_{k+1}),
+    \end{align*}
+    where $s_0 = 0$ as defined.
+    \item [(b)] We know $\sum_{k=1}^\infty x_k$ converges, and so $(s_k)$ converges. Define $s_{max} = \max\{s_k\}$, then
+    $$
+        0 \leq |s_k(y_k - y_{k+1})| \leq |s_{max}(y_k - y_{k+1})|
+    $$
+    since $y_k \geq y_{k+1} \implies y_k - y_{k+1} \geq 0$. If we show $|s_{max}(y_k - y_{k+1})|$ converges, then by Comparison Test $|s_k(y_k - y_{k+1})|$ converges. Now, $|s_{max}(y_k - y_{k+1})|$ converges because 
+    \begin{align*}
+        \sum|s_{max}||y_k - y_{k+1}| &= |s_{max}|\sum|y_k - y_{k+1}| \\
+        &= |s_{max}|\lim_{N \to \infty} \sum^\N_{k=1}(y_k - y_{k+1}) \\
+        &= |s_{max}|\lim_{N \to \infty} (y_1 \cancel{- y_2} 
+        \cancel{+ y_2} \cancel{- y_3} \cancel{+ y_3} - \cdots \cancel{+ y_{N-1}} \cancel{- y_N} \cancel{+ y_N} - y_{N+1}) \\
+        &= |s_{max}|\lim_{N \to \infty} (y_1 - y_{N+1}) \\
+        &= |s_{max}|(y_1 - \lim y_n)
+    \end{align*}
+    and so, by Algebraic Limit Theorem, $|s_{max}|$ constant and $\sum|s_{max}||y_k - y_{k+1}|$ converges. So $\sum^\infty_{k=1}s_k(y_k - y_{k+1})$ converges absolutely. Since $\sum_{k=1}^\infty x_n$ converges, $s_n$ converges, and we know $(y_{n+1})$ converges, so $\sum x_ky_k$ converges, by Algebraic Limit Theorem and part (a).
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 2.7.14* (Dirichlet's Test))  Dirichlet's Test for convergence states that if the partial sums of $\sum^\infty_{k=1}x_k$ are bounded (but not necessarily convergent), and if $(y_k)$ is a sequence satisfying $y_1 \geq y_2 \geq y_3 \geq \cdots \geq 0$ with $\lim y_k = 0$, then the series $\sum^\infty_{k=1} x_ky_k$ converges.
+\begin{enumerate}
+    \item [(a)] Point out how the hypothesis of Dirichlet's Test differs from that of Abel's Test in Exercise 2.7.13, but show that essentially the same strategy can be used to provide a proof.
+    \item [(b)] Show how the Alternating Series Test (Theorem 2.7.7) can be derived as a special case of Dirichlet's Test.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] Dirichlet's Test has a stricter requirement for the series $x_k$, that the partial sums are bounded, where in Abel's Test it is required that $\sum^\infty_{k=1} x_k$ converges. This is stricter because of our Lemma that all convergent sequences are bounded. On the other hand, Dirichlet's Test similarly requires $y_1 \geq y_2 \geq y_3 \geq \cdots \geq 0$, but additionally that $\lim y_k = 0$. This is a stricter requirement than required for Abel's Test, since $y_1 \geq y_2 \geq y_3 \geq \cdots \geq 0$ is a necessary but not sufficient requirement for $\lim y_k = 0$. Because $\sum^\infty_{k=1} x_k$ converges $\implies \sum^\infty_{k=1}$ bounded, and $y_1 \geq y_2 \geq y_3 \geq \cdots \geq 0 \implies \lim y_k = 0$, the same strategy for Abel's Test can be used to provide a proof for Dirichlet's Test.
+    \item [(b)] The special case would be the case where $(-1)^{n+1} = x_n$, $a_n = y_n$. $\inf x_n = -1 \leq x_n \leq \sup x_n = 1$, so $(x_n)$ bounded, consequently partial sums $\sum^N_{k=1} x_k$ bounded. We have
+    \begin{enumerate}
+        \item [(1)] $y_1 \geq y_2 \geq y_3 \geq \cdots \geq 0$,
+        \item [(2)] $\lim y_n = 0 \implies (y_n) \to 0$. 
+    \end{enumerate}
+\end{enumerate}
+
+\end{proof}
+
+\hrule
+\centering{\textbf{Extra practice}}
+
+\begin{Prob}(Ex. 2.5.1**) Give an example of each of the following, or argue that such a request is impossible.
+\begin{enumerate}
+    \item [(a)] A sequence that has a subsequence that is bounded but contains no subsequence that converges.
+    \item [(b)] A sequence that does not contain $0$ or $1$ as a term but contains subsequences converging to each of these values.
+    \item [(c)] \sloppy A sequence that contains subsequences converging to every point in the infinite set $\{1,1/2,1/3,1/4,1/5,\ldots\}$.
+    \item [(d)] A sequence that contains subsequences converging to every point in the infinite set $\{1,1/2,1/3,1/4,1/5,\ldots\}$, and no subsequences converging to points outside of this set.
+\end{enumerate}
+\end{Prob}
+\fussy
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] Impossible request. By Bolzano-Weierstrass Theorem, for this bounded subsequence there exist sub-subsequences that are convergent. But any sub-subsequence is also a subsequence of the original sequence, by definition.
+    \item [(b)] Consider the sequence given by
+    $$
+        a_n = \frac{1+(-1)^n}{2} + \frac{1}{n+1}.
+    $$
+    Then $0 < a_n < 1$ for all $n \in \N$, so $0,1 \not \in (a_n)$, but $a_{2n-1} \to 0$ and $a_{2n} \to 1$.
+    \item [(c)] Consider the sequence given by
+    \begin{align*}
+        a_n = &(1, 1, \frac{1}{2}, 1, \frac{1}{2}, \frac{1}{3}, 1, \frac{1}{2}, \frac{1}{3}, \frac{1}{4}, \cdots, 1, \frac{1}{2}, \cdots, \frac{1}{n}, \cdots) \\
+        = &(1, \\
+        &1, \frac{1}{2}, \\
+        &1, \frac{1}{2}, \frac{1}{3}, \\
+        &1, \frac{1}{2}, \frac{1}{3}, \frac{1}{4}, \\
+        &\vdots, \\
+        &1, \frac{1}{2}, \cdots, \frac{1}{n}, \cdots).
+    \end{align*}
+    Constant subsequences $(1,1,1,\cdots)$, $(\frac{1}{2},\frac{1}{2},\frac{1}{2}, \cdots)$, $(\frac{1}{3},\frac{1}{3},\frac{1}{3}, \cdots)$ and so on converge to the respective values in the infinite set prescribed.
+    \item [(d)] Impossible request. Any sequence that contains all the terms $\frac{1}{n}$ in order will inevitably contain the subsequence $(\frac{1}{n}) \to 0 \not \in$ prescribed set.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 2.5.2**) Decide whether the following propositions are true or false, providing a short justification for each conclusion.
+\begin{enumerate}
+    \item [(a)] If every proper subsequence of $(x_n)$ converges, then $(x_n)$ converges as well.
+    \item [(b)] If $(x_n)$ contains a divergent subsequence, then $(x_n)$ diverges.
+    \item [(c)] If $(x_n)$ is bounded and diverges, then there exist two subsequences of $(x_n)$ that converge to different limits.
+    \item [(d)] If $(x_n)$ is monotone and contains a convergent subsequence, then $(x_n)$ converges.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] True. If every proper subsequence of $(x_n)$ converges, then consider $(x_{n+1})$ that converges, and because limit of $(x_n)$ not dependent on first finitely many terms (by definition of convergence of sequences), we know $(x_n)$ converges.
+    \item [(b)] True. Proof by contraposition. Assuming $(x_n)$ converges. Then this implies $(x_n)$ bounded (since all convergent sequences are bounded), and so by Bolzano-Weierstrass Theorem $(x_n)$ contains convergent subsequences. This proves the contrapositive of the statement in question which is equivalent to the statement, and the proof is complete.
+    \item [(c)] True. The Divergence Criterion is the negation of the Lemma that all subsequences of a convergent sequence converge to the same limit, i.e. there exist two subsequences of the original sequence that converge to different limits. Since $(x_n)$ bounded, by B-W theorem there exist two convergent subsequences, but by Divergence Criterion we know they converge to different limits.
+    \item [(d)] True. If $(x_n)$ monotone then its convergent subsequence has to be monotone as well. 
+    Because all convergent subsequences are bounded, its convergent subsequence is bounded, i.e. there exists an $N \in \N$ such that for all $n_k \geq N$, $|x_{n_k}| \leq M$. But we also know $n_k \geq n$ for all $n_k$, and so
+    $$
+        |x_n| \leq |x_{n_k}| \leq M
+    $$
+    which implies
+    $$
+        |x_n| \leq M,
+    $$
+    meaning $(x_n)$ bounded. By Monotone Convergence Theorem, $(x_n)$ monotone and bounded $\implies (x_n)$ convergent.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 2.6.2**) Give an example of each of the following, or argue that such a request is impossible.
+\begin{enumerate}
+    \item [(a)] A Cauchy sequence that is not monotone.
+    \item [(b)] A Cauchy sequence with an unbounded subsequence.
+    \item [(c)] A divergent monotone sequence with a Cauchy subsequence.
+    \item [(d)] An unbounded sequence containing a subsequence that is Cauchy.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] By Cauchy Criterion, Cauchy sequence $\iff$ convergent sequence. So if we can give an example of a convergence sequence that is not monotone, we are done.
+    
+    Consider a sequence $(a_n)$ given by
+    $$
+        a_n = \frac{(-1)^{n+1}}{n}.
+    $$
+    We know $\sum a_n$ converges, by Alternating Series Test, and this implies $(a_n) \to 0$, convergent.
+    \item [(b)] Impossible request. Again, by Cauchy Criterion, we know a Cauchy sequence is a convergent sequence; furthermore convergence of this sequence implies it is bounded. Then we know that all subsequences of this convergent sequence converge to the same limit, i.e. they are convergent, which implies they are all bounded.
+    \item [(c)] Impossible request. By Monotone Convergence Theorem, a monotone bounded sequence is convergent. Therefore a divergent monotone sequence has to be unbounded, else if it is bounded by MCT it would be convergent. Assume our divergent monotone, unbounded sequence is given by $(a_n)$. Now assume for contradiction that this unbounded sequence contains a Cauchy (convergent) subsequence. Then because $(a_n)$ is monotone, this subsequence is monotone and convergent, it must be bounded, i.e. for all $\epsilon > 0$, there exists $N \in \N$ such that for all $n_k \geq N$, $|a_{n_k}| < \epsilon$. But we know $n_k \geq n$, which means
+    $$
+        |a_{n_k}| \leq |a_n| < \epsilon,
+    $$
+    but this contradicts our fundamental assumption that $(a_n)$ is unbounded (divergent monotone). Therefore there exists no such Cauchy subsequence of a divergent monotone sequence.
+    \item [(d)] Consider an unbounded sequence $(a_n)$ given by
+    \begin{align*}
+        a_n = 
+        \begin{cases}
+        n & \text{if $n$ odd}\\
+        \frac{1}{n} & \text{if $n$ even}
+        \end{cases}
+    \end{align*}
+    with the subsequence $(a_{2n})$ of $(a_n)$ converging to $0$, i.e. Cauchy.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 2.7.4**) Give an example of each or explain why the request is impossible referencing the proper theorem(s).
+\begin{enumerate}
+    \item [(a)] Two series $\sum x_n$ and $\sum y_n$ that both diverge but where $\sum x_ny_n$ converges.
+    \item [(b)] A convergent series $\sum x_n$ and a bounded sequence $(y_n)$ such that $\sum x_ny_n$ diverges.
+    \item [(c)] Two sequences $(x_n)$ and $(y_n)$ where $\sum x_n$ and $\sum (x_n + y_n)$ both converge but $\sum y_n$ diverges.
+    \item [(d)] A sequence $(x_n)$ satisfying $0 \leq x \leq 1/n$ where $\sum (-1)^nx_n$ diverges.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] Consider
+    $$
+        \sum x_n = \sum y_n = \sum \frac{1}{n}
+    $$
+    that both diverge, but where
+    $$
+        \sum x_n y_n = \sum \frac{1}{n^2}
+    $$
+    converges.
+    \item [(b)] Consider
+    $$
+        \sum x_n = \sum \frac{(-1)^{n+1}}{n}
+    $$
+    that we know converges, by Alternating Series Test, and $(y_n)$ given by
+    $$
+        y_n = (-1)^{n+1}.
+    $$
+    Then
+    $$
+        \sum x_ny_n = \sum \frac{(-1\cdot -1)^{n+1}}{n} = \sum \frac{1}{n}
+    $$
+    diverges.
+    \item [(c)] Impossible request. By Algebraic Limit Theorem for series, given $\sum x_n$ and $\sum (x_n + y_n)$ converge,
+    $$
+        \sum y_n = \sum (x_n + y_n - x_n) = \sum (x_n + y_n) + -1 \cdot \sum x_n
+    $$
+    also converges because $\sum x_n$ convergent $\implies -\sum x_n$ convergent.
+    \item [(d)] Consider
+    $$
+        0 \leq x_n = \frac{(-1)^n+1}{2n} \leq \frac{1}{n} \leq 1.
+    $$
+    Then
+    $$
+        \sum (-1)^n x_n = \sum \frac{(-1)^n((-1)^n + 1)}{2n} = \sum \frac{1+1}{2n} = \sum \frac{1}{n}
+    $$
+    diverges.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 2.7.8**) Consider each of the following propositions. Provide short proofs for those that are true and counterexamples for any that are not.
+\begin{enumerate}
+    \item [(a)] If $\sum a_n$ converges absolutely, then $\sum a_n^2$ also converges absolutely.
+    \item [(b)] If $\sum a_n$ converges and $(b_n)$ converges, then $\sum a_nb_n$ converges.
+    \item [(c)] If $\sum a_n$ converges conditionally, then $\sum n^2a_n$ diverges.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] True. $\sum a_n$ converges absolutely implies $(a_n) \to 0$. By definition of convergence of sequence, for all $\epsilon > 0$ there exists $N \in \N$ such that for all $n \geq N$, $|a_n| < \epsilon$. Pick $\epsilon = 1$. Then we know 
+    $$
+        0 \leq |a_n| < 1.
+    $$
+    Now, because $|a_n| < 1$, we have
+    $$
+        0\leq |a_n|^2 \leq |a_n| < 1.
+    $$
+    By Comparison Test, since we know $\sum |a_n|$ converges ($\sum a_n$ converges \textit{absolutely}), $\sum |a_n|^2$ converges, i.e. $\sum a_n^2$ converges absolutely.
+    \item [(b)] False. Consider
+    $$
+        \sum a_n = \sum \frac{(-1)^{n+1}}{\sqrt{n}}
+    $$
+    which converges, and sequence $(b_n)$ given by
+    $$
+        b_n = \frac{(-1)^{n+1}}{\sqrt{n}}
+    $$
+    which converges. Then 
+    $$
+        \sum a_n b_n = \sum \frac{(-1\cdot -1)^{n+1}}{\sqrt{n} \cdot \sqrt{n}} = \sum \frac{1}{n}
+    $$
+    diverges.
+    \item [(c)] True. Assume for contradiction that $\sum a_n$ converges conditionally, but $\sum n^2 a_n$ converges. Then $(n^2 a_n) \to 0$, and $(n^2a_n) bounded$, i.e. for all $\epsilon > 0$, there exists $N \in \N$ such that for all $n \geq N$, $|n^2a_n| < \epsilon$. Then
+    $$
+        |a_n| < \frac{\epsilon}{|n^2|} = \frac{\epsilon}{n^2}.
+    $$
+    Pick $\epsilon = 1$, then
+    $$
+        0 \leq |a_n| < \frac{1}{n^2}.
+    $$
+    Then because $\sum \frac{1}{n^2}$ converges, by Comparison Test $\sum |a_n|$ converges as well. But this would mean $\sum a_n$ converges absolutely, which contradicts initial assumption that $\sum a_n$ converges only conditionally. We have proven contrapositive, and so we have proven statement in question.
+\end{enumerate}
+
+\end{proof}
+
+\end{document}
+
+
