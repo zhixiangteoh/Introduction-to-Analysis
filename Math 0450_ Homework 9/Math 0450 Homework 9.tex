@@ -1,0 +1,852 @@
+\documentclass[11pt,twoside, reqno]{amsart}
+\usepackage{cancel}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{enumitem}
+% \usepackage{pgfplots}
+\usepackage{amssymb}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%packages%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%formatting%%%%%%%%%%%%%%%%%%
+
+\setlength{\topmargin}{0in} 
+\setlength{\oddsidemargin}{0in}   
+\setlength{\evensidemargin}{0in}  
+\setlength{\textheight}{8.5in}    
+\setlength{\textwidth}{6.5in}  
+\setlength{\headsep}{0.5in}   
+\setlength{\headheight}{0in}
+\parskip=4pt 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%formatting%%%%%%%%%%%%%%%%%%
+
+\newtheorem{Thm}{Theorem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Lm}[Thm]{Lemma}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Cor}[Thm]{Corollary}
+
+
+\theoremstyle{remark}
+\newtheorem{Rem}[Thm]{Remark}
+\newtheorem{Exp}[Thm]{Example}
+\newtheorem{Prob}{Problem}
+
+%\numberwithin{equation}{section}
+
+
+
+\def\R{\mathbb R}
+\def\Q{\mathbb Q}
+\def\N{\mathbb N}
+\def\Z{\mathbb Z}
+
+
+%%%%%%%%%%%%%%%%logical connectors%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\OR}{\vee}
+\newcommand{\AND}{\wedge}
+\renewcommand{\implies}{\Rightarrow}
+\newcommand{\implied}{\Leftarrow}
+\renewcommand{\iff}{\Leftrightarrow}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{Math 0450: Homework 9}
+\date{\today}
+\author{Teoh Zhixiang}
+
+\maketitle
+Instructions: Submit solutions for 5 of the 8 problems below (not counting extra credit problems).
+
+\begin{Prob}(Ex. 4.2.7) Let $g : A \to \R$ and assume that $f$ is a bounded function on $A$ in the sense that there exists $M > 0$ satisfying $|f(x)| \leq M$ for all $x \in A$.
+
+Show that if $\lim_{x \to c}g(x) = 0$, then $\lim_{x \to c}g(x)f(x) = 0$ as well.
+\end{Prob}
+
+\begin{proof}
+We want to show $\lim_{x \to c}g(x)f(x) = 0$, which means for all $\epsilon > 0$, there exists a $\delta > 0$ such that $|g(x)f(x) - 0| < \epsilon$. Fix $\epsilon_0 = \epsilon / M$. By definition of functional limit, $\lim_{x \to c}g(x) = 0$ means that for this $\epsilon_0$ there exists a $\delta > 0$ such that $0 < |x - c| < \delta$ implies 
+$$
+|g(x) - 0| < \epsilon_0 = \epsilon / M.
+$$
+Then because $|f(x)| \leq M$, where $M > 0$, for all $x \in A$,
+$$
+    |g(x)f(x) - 0| = |g(x)f(x)| < \epsilon_0 \cdot M = \frac{\epsilon}{M} \cdot M = \epsilon,
+$$
+which is what we wanted to show.
+
+\end{proof}
+
+\begin{Prob}(Ex. 4.2.11) (Squeeze Theorem). Let $f,g,$ and $h$ satisfy $f(x) \leq g(x) \leq h(x)$ for all $x$ in some common domain $A$. If $\lim_{x \to c}f(x) = L$ and $\lim_{x \to c}h(x) = L$ at some limit point $c$ of $A$, show $\lim_{x \to c}g(x) = L$ as well.
+\end{Prob}
+
+\begin{proof}
+Given $f(x) \leq g(x) \leq h(x)$ for all $x$ in a common domain $A$, we can rewrite as
+$$
+    f(x) - L \leq g(x) - L \leq h(x) - L.
+$$
+Using $|f(x) - L| < \epsilon$ and $|h(x) - L| < \epsilon$, whenever $|x - c| < \delta$, we want to show $|g(x) - L| < \epsilon$ as well, where $\epsilon > 0$, arbitrary. Now to take absolute value on the individual terms in $f(x) - L \leq g(x) - L \leq h(x) - L$, we examine cases (varying the signs of the terms) and resolve it to
+$$
+    |g(x) - L| \leq |f(x) - L| < \epsilon
+$$
+or 
+$$
+    |g(x) - L| \leq |h(x) - L| < \epsilon
+$$
+or both. Whichever the case we have shown $|g(x) - L| < \epsilon$ whenever $|x - c| < \delta$, where $\delta > 0$ as chosen for $f(x)$ and $h(x)$.
+
+\end{proof}
+
+\begin{Prob}(Ex. 4.3.3)
+\begin{enumerate}
+    \item [(a)] Supply a proof for Theorem 4.3.9 using the $\epsilon$-$\delta$ characterization of continuity.
+    
+    \begin{Thm}[4.3.9 Composition of Continuous Functions]
+        Given $f : A \to \R$ and $g : B \to \R$, assume that the range $f(A) = \{f(x) : x \in A\}$ is contained in the domain $B$ so that the composition $g \circ f(x) = g(f(x))$ is defined on $A$.
+        
+        If $f$ is continuous at $c \in A$, and if $g$ is continuous at $f(c) \in B$, then $g \circ f$ is continuous at $c$.
+    \end{Thm}
+    \item [(b)] Give another proof of this theorem using the sequential characterization of continuity (from Theorem 4.3.2(iii)).
+    
+    \begin{Thm}[4.3.2(iii) Characterizations of Continuity]
+        For all $(x_n) \to c$ (with $x_n \in A$), it follows that $f(x_n) \to f(c)$.
+    \end{Thm}
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] Fix $\epsilon > 0$, arbitrary. Given that $g$ is defined on $A$ and continuous at $f(c) \in B$, for this $\epsilon$ there exists a $\delta_1 > 0$ such that for all $y \in B$, 
+    $$
+    |y - f(c)| < \delta_1 \implies |g(y) - g(f(c))| < \epsilon.
+    $$
+    Because $f$ is continuous at $c \in A$, for an $\epsilon_0 = \delta_1 > 0$, there exists a $\delta$ such that
+    $$
+    |x - c| < \delta \implies |f(x) - f(c)| < \epsilon_0 = \delta_1.
+    $$
+    Combining the two statements gives us for this arbitrary $\epsilon > 0$, there exists $\delta > 0$ such that
+    $$
+    |x - c| < \delta \implies |f(x) - f(c)| < \delta_1 \implies |g(f(x)) - g(f(c))| < \epsilon,
+    $$
+    which by definition means that $g \circ f$ is continuous at $c$.
+    \item [(b)] Because $f$ is continuous at $c \in A$, for all $(x_n) \to c$ (with $x_n \in A$), it follows that $f(x_n) \to f(c)$. Similarly, $g$ is continuous at $f(c) \in B$ so for all $f(x_n) \to f(c)$ (with $f(x_n) \in B$), $g(f(x_n)) \to g(f(c))$. 
+    
+    Combining the two statements, we get for all $(x_n) \to c$ (with $x_n \in A$),
+    $$
+        g(f(x_n)) \to g(f(c)),
+    $$
+    which by sequential characterization of continuity means $g \circ f$ is continuous at $c$.
+\end{enumerate}
+
+\end{proof}
+
+
+\begin{Prob}(Ex. 4.3.9) Assume $h : \R \to \R$ is continuous on $\R$ and let $K = \{x : h(x) = 0\}$. Show that $K$ is a closed set.
+\end{Prob}
+
+\begin{proof} To prove $K$ is closed, it is enough to prove $K$ contains all its limit points, by following Lemma.
+\begin{Lm} [Definition 3.2.7]
+    A set $F \subseteq \R$ is closed if it contains its limit points.
+\end{Lm}
+Let $x_0$ be an arbitrary limit point of $K$. By definition of limit point, there exists a sequence $(x_n) \in K$ such that $(x_n) \to x_0$. Since $x_n \in K$ for all $n \in \N$, we have
+$$
+    h(x_n) = 0
+$$
+for all $n \in \N$. Now, $h$ is continuous, so 
+$$
+    (x_n) \to x_0 \implies (h(x_n)) \to h(x_0).
+$$
+Since $(h(x_n))$ is the constant sequence with each $h(x_n) = 0$, it converges to $0$. So $h(x_0) = 0$, which implies that $x_0 \in K$. Therefore $K$ contains all its limit points, and thus is closed.
+
+\end{proof}
+
+
+\begin{Prob}(Ex. 4.3.11*) (Contraction Mapping Theorem). Let $f$ be a function defined on all of $\R$, and assume there is a constant $c$ such that $0 < c < 1$ and
+$$
+    |f(x) - f(c)| \leq c|x-y|
+$$
+for all $x,y \in \R$.
+\begin{enumerate}
+    \item [(a)] Show that $f$ is continuous on $\R$.
+    \item [(b)] Pick some point $y_1 \in \R$ and construct the sequence
+    $$
+        (y_1,f(y_1), f(f(y_1), \ldots).
+    $$
+    In general, if $y_{n+1} = f(y_n)$, show that the resulting sequence $(y_n)$ is a Cauchy sequence. Hence we may let $y = \lim y_n$.
+    \item [(c)] Prove that $y$ is a fixed point of $f$ (i.e., $f(y) = y$) and that it is unique in this regard.
+    \item [(d)] Finally, prove that if $x$ is \textit{any} arbitrary point in $\R$, then the sequence $(x, f(x), f(f(x)),\ldots)$ converges to $y$ defined in $b$.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] Fix $\epsilon > 0$, arbitrary. For this $\epsilon$, set $\delta = \epsilon / c$. Now, whenever $|x - y| < \delta = \epsilon / c$, we have
+    $$
+        |f(x) - f(y)| \leq c|x - y| < c \cdot \frac{\epsilon}{c} = \epsilon
+    $$
+    for all $x,y \in \R$, with $0 < c < 1$, and so $f$ continuous on $\R$.
+    \item [(b)] In general $y_{n+1} = f(y_n)$. For any two elements $f^n(y_1),f^m(y_1)$ of the sequence, with $n > m$,
+    \begin{align*}
+        |f^n(y_1) - f^m(y_1)| \leq c|f^{n-1}(y_1) - f^{m-1}(y_1)| & \leq c^2|f^{n-2}(y_1) - f^{m-2}(y_1)| \\
+        & \leq \cdots \\
+        & \leq c^m|f^{n-m}(y_1) - y_1|.
+    \end{align*}
+    Given $f$ defined on all of $\R$, $f^{n-m}(y_1)$ is defined and so there exists some $N \in \N$ such that for all $m \geq N$,
+    $$
+        c^m|f^{n-m}(y_1) - y_1| \leq \epsilon
+    $$
+    for all $\epsilon > 0$. Thus the sequence $(y_n)$ as defined is Cauchy. Hence we may let $y = \lim y_n$.
+    \item [(c)] By $y = \lim y_n$ as defined in (b), notice that
+    $$
+        f(y) = f(\lim y_n) = f(\lim f^{n-1}(y_1)) = f(\lim f^{n-2}(y_1))
+    $$
+    since limit of sequence not dependent on first (finitely many) term $y_1$. Furthermore, by $f$ continuous we have that
+    $$
+        f(\lim f^{n-2}(y_1)) = \lim f(f^{n-2}(y_1)) = \lim f^{n-1}(y_1) = \lim y_n = y
+    $$
+    again by $y = \lim y_n$. So $f(y) = y$. Assume for contradiction $y$ is not unique in its fixed point property, i.e. there exists an $x \in \R$ such that $f(x) = x$ ($x$ is a fixed point). Then
+    $$
+        |f(x) - f(y)| = |x - y| \leq c|x - y|
+    $$
+    which implies that $c \geq 1$. But this contradicts our initial fundamental assumption that $0 < c < 1$. So our assumption that $f(x) = x$ is false, and so $y$ is the only fixed point.
+    \item [(d)] Assume $x \in \R$, arbitrary. Because $y$ is a fixed point ($f(y) = y$), observe that
+    \begin{align*}
+        |f^{n}(x) - y| = |f^{n}(x) - f^n(y)| & \leq c|f^{n-1}(x) - f^{n-1}(y)| \\
+        & \leq \cdots \\
+        & \leq c^n|x - y|
+    \end{align*}
+    for any $n \in \N$. Because $0 < c < 1$, $(c^n|x-y|)$ converges to $0$, $(|f^n(x) - y|)$ also converges to $0$, i.e. $\lim |f^n(x) - y| = 0$. In other words
+    $$
+        \lim f^n(x) = y
+    $$
+    and the proof is complete.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 4.3.12*) Let $F \subseteq \R$ be a nonempty closed set and define $g(x) = \inf \{|x-a| : a \in F\}$. Show that $g$ is continuous on all of $\R$ and $g(x) \neq 0$ for all $x \not \in F$.
+\end{Prob}
+
+\begin{proof}
+Fix $\epsilon > 0, c \in \R$, arbitrary. Let $\delta = \epsilon$. Our aim is to show that $|f(x) - g(c)| \leq |x - c| < \delta = \epsilon$. For $a \in F$, notice that
+$$
+    |x - a| \leq |x - c| + |c - a|
+$$
+and 
+\begin{align*}
+    |c - a| & \leq |c - x| + |x - a| = |x - c| + |x - a| \\
+    \implies -|x - c| + |c - a| & \leq |x - a|.
+\end{align*}
+Combining the two inequalities we have
+$$
+    |c - a| - |x - c| \leq |x - a| \leq |c - a| + |x - c|.
+$$
+Taking $\inf$,
+$$
+    \inf\{|c - a| - |x - c| : a \in F\} \leq \inf \{|x - a| : a \in F \} \leq \inf \{|c - a| + |x - c| \}
+$$
+which is equivalent to
+$$
+    \inf \{|c - a| : a \in F\} - |x - c| \leq \inf \{ |x - a| : a \in F \} \leq \inf \{|c - a| : a \in F\}+ |x - c|
+$$
+By definition of $g$, we can resolve to above to
+$$
+    g(c) - |x - c| \leq g(x) \leq g(c) + |x - c|
+$$
+which in other words means
+$$
+    |g(x) - g(c)| \leq |x - c| < \delta = \epsilon
+$$
+and we have shown $g$ continuous on $\R$ since the original $c \in \R$ we picked is arbitrary.
+
+Given $F$ closed, we prove for all $x \not \in F$, $g(x) \neq 0$. Suppose for contradiction that $g(x) = 0$. Then there exists a sequence $(a_n) \subseteq F$ such that $|x - a_n| = |a_n - x| \to \inf \{|x - a| : a \in F\} = g(x) = 0$. This implies $(a_n) \to x$, a limit point outside $F$. But this contradicts assumption that $F$ closed and so contains all its limit points. Thus our assumption that $g(x) = 0$ is false, i.e. $g(x) \neq 0$ for all $x \not \in F$.
+
+\end{proof}
+
+\begin{Prob}(Ex. 4.3.14*)
+\begin{enumerate}
+    \item [(a)] Let $F$ be a closed set. Construct a function $f : \R \to \R$ such that the set of points where $f$ fails to be continuous is precisely $F$. (The concept of the interior of a set, discussed in Exercise 3.2.14, may be useful.)
+    \item [(b)] Now consider an open set $O$. Construct a function $g : \R \to \R$ whose set of discontinuous points is precisely $O$. (For this problem, the function in Exercise 4.3.12 may be useful.)
+    \begin{Lm}[Function in Exercise 4.3.12]
+    $$
+        g(x) = \inf \{|x-a| : a \in F\},
+    $$
+    where $F \subseteq \R$ is a nonempty closed set, $g$ continuous on all of $\R$ and $g(x) \neq 0$ for all $x \not \in F$.
+    \end{Lm}
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] Consider the function $f$ defined by
+    \begin{align*}
+        f(x) =
+            \begin{cases}
+                D(x) & \text{for $x \in [a,b] \subseteq F$} \\
+                x & \text{if $x \not \in F$} \\
+                0 & \text{if $x \in F$}
+            \end{cases}
+    \end{align*}
+    for some $a,b \in \R$, where $D(x)$ is defined as the Dirichlet's function, i.e.
+    \begin{align*}
+        D(x) =
+            \begin{cases}
+                1 & \text{if $x \in \Q$} \\
+                0 & \text{if $x \not \in \Q$}
+            \end{cases}.
+    \end{align*}
+    \item [(b)] We use the function in Exercise 4.3.12
+    \begin{Lm}[Function in Exercise 4.3.12]
+    $$
+        g(x) = \inf \{|x-a| : a \in F\},
+    $$
+    where $F \subseteq \R$ is a nonempty closed set, $g$ continuous on all of $\R$ and $g(x) \neq 0$ for all $x \not \in F$.
+    \end{Lm}
+    With this idea, $O$ open implies $\R \setminus O = O^c$ closed; let function $g$ be defined as
+    \begin{align*}
+        g(x) = 
+            \begin{cases}
+                \inf \{|x-a| : a \in \R \setminus O\} & \text{if $x \not \in O$} \\
+                D(x) & \text{if $x \in O$}
+            \end{cases}.
+    \end{align*}
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 4.4.5) Assume that $g$ is defined on an open interval $(a,c)$ and it is known to be uniformly continuous on $(a,b]$ and $[b,c)$, where $a < b < c$. Prove that $g$ is uniformly continuous on $(a,c)$.
+\end{Prob}
+
+\begin{proof}
+Fix $\epsilon_0 = \epsilon / 2 > 0$, arbitrary. Because $g$ is uniformly continuous on $(a,b]$, there exists a $\delta_1 > 0$ such that for all $p,q \in (a,b]$, 
+$$
+    |p-q| < \delta_1 \implies |g(p) - g(q)| < \epsilon_0.
+$$
+Similarly, because $f$ is uniformly continuous on $[b,c)$, for this same $\epsilon$, there exists a $\delta_2 > 0$ such that for all $r,s \in [b,c)$,
+$$
+    |r-s| < \delta_2 \implies |g(r) - g(s)| < \epsilon_0.
+$$
+We want to show there exists a $\delta > 0$ such that for all $x,y \in (a,c)$, $|x-y| < \delta \implies |g(x) - g(y)| < \epsilon$.
+
+Let $\delta = \min \{\delta_1, \delta_2\}$. As the most general (worst case), assume $x \in (a,b]$ and $y \in [b,c)$. Then
+$$
+    |x - y| < \delta \implies |g(x) - g(y)| \leq |g(x) - g(b)| + |g(b) - g(y)| < \epsilon_0 + \epsilon_0 = 2 \frac{\epsilon}{2} = \epsilon
+$$
+which by definition means $g$ is uniformly continuous on $(a,c)$.
+
+\end{proof}
+
+\begin{Prob}(Ex. 4.5.3) A function $f$ is \textit{increasing} on $A$ if $f(x) \leq f(y)$ for all $x < y$ in $A$. Show that if $f$ is increasing on $[a,b]$ and satisfies the intermediate value property (Definition 4.5.3), then $f$ continuous on $[a,b]$.
+
+\begin{Def} [4.5.3 Intermediate Value Property]
+    A function $f$ has the \textit{intermediate value property} on an interval $[a,b]$ if for all $x < y$ in $[a,b]$ and all $L$ between $f(x)$ and $f(y)$, it is always possible to find a point $c \in (x,y)$ where $f(c) = L$.
+\end{Def}
+\end{Prob}
+
+\begin{proof}
+Fix $\epsilon > 0$. Our aim is to show that there exists $\delta > 0$ such that for $c \in [a,b]$, $|x - c| < \delta \implies |f(x) - f(y)| < \epsilon$. First pick $c \in (a,b)$ such that $a < c < b$. By the intermediate value property, we can find a point $d \in (a,c)$, satisfying $a < d < c$, where $f(d) = L_1 = f(c) - \epsilon$. Let $\delta_1 = c - d$. Given $f$ strictly increasing, for all $x \in [d,c]$ such that $|x - c| < c - d = \delta_1$, we have
+$$
+    f(c) - \epsilon = f(d) \leq f(x) \leq f(c).
+$$
+Similarly, by the intermediate value property of $f$ we can pick another point $e \in (c,b)$ satisfying $c < e < b$, where $f(e) = L_2 = f(c) + \epsilon$. Let $\delta_2 = e - c$. Given $f$ strictly increasing, for all $x \in [c,e]$ such that $|x - c| < e - c = \delta_2$, we have
+$$
+    f(c) \leq f(x) \leq f(e) = f(c) + \epsilon
+$$
+Next we consider the case when $c = a$. For our particular $\epsilon$, for $x > a = c$, we can find a $\delta_3 > 0$ such that whenever $|x - c| < \delta_3$ we have that $|f(x) - f(c)| < \epsilon$. Similarly for $c = b$, for $x < b = c$ we can find a $\delta_4 > 0$ such that whenever $|x - c| < \delta_4$ we have that $|f(x) - f(c)| < \epsilon$. Let $\delta = \min \{\delta_1, \delta_2, \delta_3, \delta_4\}$. For all $\epsilon > 0$, $|x - c| < \delta$ implies
+$$
+    |f(x) - f(c)| < \epsilon,
+$$
+and we have shown $f$ continuous at $c$.
+
+\end{proof}
+
+\begin{Prob}(Ex. 4.5.4) Let $g$ be continuous on an interval $A$ and let $F$ be the set of points where $g$ fails to be one-to-one; that is,
+$$
+    F = \{x \in A : f(x) = f(y) \text{ for some $y \neq x$ and $y \in A$}\}.
+$$
+Show $F$ is either empty or uncountable.
+\end{Prob}
+
+\begin{proof}
+If $F$ empty, we are done. If $F$ not empty, because $g$ is continuous on interval $F \subseteq A$, then by definition of $F$ there exist at least two points $x,y \in F$. So $g(x) = g(y)$ on this interval $F$. Now there are two cases: either $g$ is constant on the interval $[x,y]$ or $g$ not constant on this interval. If $g$ is constant on $[x,y]$, $[x,y] \subseteq F$ and therefore $F$ is uncountable. 
+
+If $g$ not constant on this interval, then because $g$ continuous on this compact set $[x,y] \subseteq \R$, by Extreme Value Theorem it attains a minimum and maximum value, $g(x_{\min})$ and $g(x_{\max})$ respectively. Because $g$ not constant on this interval, either $x_{\max} \in (x,y)$ or $x_{\min} \in (x,y)$. Assume the former. Then consider the interval of range $[g(x),g(x_{\max})]$. By the Intermediate Value Theorem applied to $g:[x,x_{\max}] \to \R$ and $g:[x_{\max},y] \to \R$, $g$ obtains every value in the interval $[g(x),g(x_{\max})]$ at least twice, which proves $g$ fails to be one-to-one on the interval $[x,y] = [x,x_{\max}] \cup [x_{\max},y] \subseteq F$ which is uncountable. We have proven $F$ is either empty or, if it's not empty, uncountable.
+\end{proof}
+
+
+\begin{Prob}(Ex. 4.5.8) (Inverse functions). If a function $f : A \to \R$ is one-to-one, then we can define the inverse function $f^{-1}$ on the range $f$ in the natural way: $f^{-1}(y) = x$ where $y = f(x)$.
+
+Show that if $f$ is continuous on an interval $[a,b]$ and one-to-one, then $f^{-1}$ is also continuous.
+\end{Prob}
+
+\begin{proof} 
+We begin by proving the following  for our continuous one-to-one function $f:[a,b] \to \R$. 
+\begin{Thm}
+A function $f$ is monotone if it is one-to-one.
+\end{Thm}
+$f$ one-to-one means that for $x,y \in [a,b]$, $f(x) = f(y) \implies x = y$. For contradiction assume $f$ is not monotone, i.e. there exists $x < y < z$ in $[a,b]$ for which ($f(x) < f(y)$ and $f(y) > f(z)$), or ($f(x) > f(y)$ and $f(y) < f(z)$). Suppose $f(y) > f(x)$ and $f(y) > f(z)$ (the other case is proved similarly). Because $f$ continuous, by intermediate value theorem, there exist $x_1 \in [x, y)$ and $x_2 \in (y, z]$ such that $f(x_1) = f(x_2)$. Since $x_1 < y < x_2$, $x_1 \neq x_2$ and this contradicts our assumption that $f$ is one-to-one. By contradiction we have proven $f$ is monotone.
+
+We know $f$ is monotone. Suppose, without loss of generality, that $f$ is strictly increasing. Fix $\epsilon > 0$, arbitrary. Let $y_1 \in f(A)$. Let $x_1 = f^{-1}(y_1) \in (a,b)$. There exist $c, d \in [a,b]$ with 
+$$
+x_1 - \epsilon < c < x_1 < d < x_1 + \epsilon.
+$$
+Then
+$$
+    f(c) < f(x_1) < f(d),
+$$
+that is,
+$$
+    f(c) < y_1 < f(d).
+$$
+Set $\delta = \min \{y_1 - f(c), f(d) - y_1\}$. We pick a $y \in f(A)$ such that $|y - y_1| < \delta$. For this $y$, we see that
+$$
+    |y - y_1| < \delta \implies y_1 - \delta < y < y_1 + \delta
+$$
+and so
+$$
+    f(c) < y < f(d).
+$$
+Then taking $f^{-1}$,
+$$
+    c < f^{-1}(y) < d.
+$$
+With this, because $x_1 = f^{-1}(y_1)$ and $c - \epsilon < x_1 < d + \epsilon$, it follows that
+$$
+    |f^{-1}(y) - f^{-1}(y_1)| < \epsilon,
+$$
+and we have proven for $\epsilon > 0$, there exists a $\delta > 0$ such that $|y - y_1| < \delta \implies |f^{-1}(y) - f^{-1}(y_1)| < \epsilon$, which is exactly the statement that $f^{-1}$ is continuous on $(a,b)$.
+
+Now we just have to prove $f^{-1}$ continuous on endpoints $a$ and $b$. Consider case when $x_1 = f^{-1}(y_1) = a$. For $\epsilon > 0$ we have that
+$$
+    x_1 < e < x_1 + \epsilon
+$$
+for some $e > a = x_1$. Then $f(x_1) = y_1 < f(e) \iff x_1 = f^{-1}(y_1) < e$. Set $\delta = f(e) - y_1$. For $y \in f(A)$ such that $|y - y_1| < \delta$, $|f^{-1}(y) - f^{-1}(y_1)| < \epsilon$ because $|e - x_1| = |x_1 - e| < \epsilon$. A very similar argument follows for case when $x_1 = b$.
+
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EXTRA PRACTICE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hrule
+\centering{\textbf{Extra practice}}
+
+\begin{Prob}(Ex. 4.2.6**) Decide if the following claims are true or false, and give short justifications for each conclusion.
+\begin{enumerate}
+    \item [(a)] If a particular $\delta$ has been constructed as a suitable response to a particular $\epsilon$ challenge, then any smaller positive $\delta$ will also suffice.
+    \item [(b)] If $\lim_{x \to a} f(x) = L$ and $a$ happens to be in the domain of $f$, then $L = f(a)$.
+    \item [(c)] If $\lim_{x \to a} f(x) = L$, then $\lim_{x \to a} 3|f(x) - 2|^2 = 3(L-2)^2$.
+    \item [(d)] If $\lim_{x \to a} f(x) = 0$, then $\lim_{x \to a} f(x)g(x) = 0$ for any function $g$ (with domain equal to the domain of $f$.)
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] True. A particular $\delta > 0$ suitable for a particular $\epsilon > 0$ means that $|f(x) - L| < \epsilon$ whenever $0 < |x - c| < \delta$, where $c$ is a limit point of domain. Let the smaller positive $\delta$ be $\delta'$ such that $\delta > \delta' > 0$. Then by definition of functional limit, this $\delta'$ is also a suitable response to $\epsilon$ since $0 < |x - c| < \delta' < \delta$ for $|f(x) - L| < \epsilon$ to still hold.
+    \item [(b)] False. The idea is that the limit of a limit point $a$ in the domain of $f$ can be different from the image $f(a)$ of $a$. Consider Thomae's Function as a counterexample:
+    \begin{align*}
+        t(x) = 
+            \begin{cases}
+                1 & \text{if $x = 0$} \\
+                1/n & \text{if $x = m/n \in \Q \setminus \{0\}$ is in lowest terms with $n > 0$} \\
+                0 & \text{if $x \not \in \Q$}
+            \end{cases}
+    \end{align*}
+    For this function note that $\lim_{x \to 1} t(x) = 0 = L \neq 1 = t(1)$. 
+    \item [(c)] True. Define a constant function $g(x) = 2$ on the domain of $f$. We observe that $\lim_{x \to a} g(x) = 2$, so we have
+    \begin{align*}
+        \lim_{x \to c} |f(x) - 2| & = 
+            \begin{cases}
+                f(x) - 2 = f(x) - g(x) = L - 2 & \text{if positive} \\
+                - (f(x) - 2) = -1 \cdot (f(x) - g(x)) = - (L - 2) & \text{if negative}
+            \end{cases}
+            \\
+            & = |L - 2|
+    \end{align*}
+    by Algebraic Limit Theorem for Functional Limits. Then
+    $$
+        \lim_{x \to c} 3|f(x) - 2|^2 = \lim_{x \to c} 3 \cdot |f(x) - 2| \cdot |f(x) - 2| = 3|L - 2|^2.
+    $$
+    \item [(d)] False. Consider the function $f$ defined by
+    $$
+        f(x) = x - a
+    $$
+    on the domain $\R \setminus \{a\}$, and the function $g$ defined by
+    $$
+        g(x) = \frac{1}{x-a}
+    $$
+    on the same domain. Then
+    $$
+        \lim_{x \to a} f(x) = 0,
+    $$
+    but
+    $$
+        \lim_{x \to a} f(x)g(x) = \lim_{x \to a} (x - a) \cdot \frac{1}{x-a} = 1 \neq 0.
+    $$
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 4.3.2**) To gain a deeper understanding of the relationship between $\epsilon$ and $\delta$ in the definition of continuity, let's explore some modest variations of Definition 4.3.1. In all of these, let $f$ be a function defined on all of $\R$.
+\begin{enumerate}
+    \item [(a)] Let's say $f$ is \textit{onetinuous} at $c$ if for all $\epsilon > 0$ we can choose $\delta = 1$ and it follows that $|f(x) - f(c)| < \epsilon$ whenever $|x-c| < \delta$. Find an example of a function that is onetinuous on all of $\R$.
+    \item [(b)] Let's say $f$ is \textit{equaltinuous} at $c$ if for all $\epsilon > 0$ we can choose $\delta = \epsilon$ and it follows that $|f(x) - f(c)| < \epsilon$ whenever $|x-c| < \delta$. Find an example of a function that is equaltinuous on $\R$ that is nowhere onetinuous, or explain why there is no such function.
+    \item [(c)] Let's say $f$ is \textit{lesstinuous} at $c$ if for all $\epsilon > 0$ we can choose $0 < \delta < \epsilon$ and it follows that $|f(x) - f(c)| < \epsilon$ whenever $|x-c| < \delta$. Find an example of a function that is lesstinuous on $\R$ that is nowhere equaltinuous, or explain why there is no such function.
+    \item [(d)] Is every lesstinuous function continuous? Is every continuous function lesstinuous? Explain.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] Consider the function $f$ defined by
+    $$
+        f(x) = 0.
+    $$
+    Let $c \in \R$, arbitrary. Observe that for all $\epsilon > 0$, $|f(x) - f(c)| = 0 < \epsilon$ whenever $|x - c| < 1 = \delta$.
+    \item [(b)] Consider the function $f$ defined by
+    $$
+        f(x) = x.
+    $$
+    Let $c \in \R$, arbitrary. Observe that for all $\epsilon > 0$, $|f(x) - f(c)| = |x - c| < \delta = \epsilon$ whenever $1 \leq |x - c| < \delta$, but for $|x - c| < 1$ if we pick $\epsilon = 2$ then $|f(x) - f(c)| > 2 = \epsilon$ so $f$ nowhere onetinuous.
+    \item [(c)] Consider the function $f$ defined by
+    $$
+        f(x) = 2x.
+    $$
+    Let $c \in \R$, arbitrary. Observe that for all $\epsilon > 0$, $|f(x) - f(c)| = |2x - 2c| = 2|x - c|$. We can set $\delta = \epsilon / 2$, which gives us
+    $$
+        |f(x) - f(c)| = 2|x - c| < 2 \cdot \frac{\epsilon}{2} = \epsilon
+    $$
+    whenever $|x - c| < \delta = \epsilon / 2$, where $0 < \delta < \epsilon$. If $\delta = \epsilon$ then if we pick $\epsilon = 2$, $|f(x) - f(c)| = 2|x - c| < 4 > \epsilon$ whenever $|x - c| < 2 = \delta = \epsilon$; so by contradiction $f$ is nowhere equaltinuous. 
+    \item [(d)] Yes, every lesstinuous function is continuous. From definition of lesstinuous function, $\delta > 0$ where $\delta < \epsilon$, and whenever $|x - c| > \delta$, $|f(x) - f(c)| < \epsilon$ which is exactly the definition of continuity. 
+    
+    Yes, every continuous function is lesstinuous. Definition of continuity is that for all $\epsilon > 0$, there exists a $\delta > 0$ such that $|f(x) - f(c)| < \epsilon$ whenever $|x - c| < \delta$. If $\delta \geq \epsilon$, we can always choose $\delta' < \epsilon$ such that $|f(x) - f(c)| < \epsilon$ whenever $|x - c| < \delta' < \epsilon < \delta$. 
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 4.3.4**) Assume $f$ and $g$ are defined on all of $\R$ and that $\displaystyle \lim_{x \to p} f(x) = q$ and $\displaystyle \lim_{x \to q} g(x) = r$.
+\begin{enumerate}
+    \item [(a)] Give an example to show that it may not be true that
+    $$
+        \lim_{x \to p} g(f(x)) = r.
+    $$
+    \item [(b)] Show that the result in (a) does follow if we assume $f$ and $g$ are continuous.
+    \item [(c)] Does the result in (a) hold if we only assume $f$ is continuous? How about if we only assume that $g$ is continuous?
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] Let $f(x) = 0$ constant function, and $g$ defined by
+    \begin{align*}
+        g(x) =
+            \begin{cases}
+                x^2 & \text{if $x \neq 0$} \\
+                1 & \text{if $x = 0$}
+            \end{cases}
+    \end{align*}
+    Then
+    $$
+        \lim_{x \to 0 = q} g(x) = 0 = r    
+    $$
+    but
+    $$
+        \lim_{x \to 0} g(f(x)) = \lim_{x \to 0} g(0 = p) = \lim_{x \to 0} 1 = 1 \neq 0 = r
+    $$
+    \item [(b)] Assuming $f$ and $g$ are continuous, the conditions of Theorem 4.3.9 Composition of Continuous Functions are fulfilled, thus by the same theorem $g \circ f$ is continuous at $p$ and so $\lim_{x \to p} g(f(x)) = r$ follows by
+    $$
+        \lim_{x \to p} g(f(x)) = g(\lim_{x \to p} f(x)) = g(f(p)) = g(q) = r.
+    $$
+    \begin{Thm} [4.3.9 Composition of continuous Functions]
+        Given $f : A \to \R$ and $g : B \to \R$, assume that the range $f(A) = \{f(x) : x \in A\}$ is contained in the domain $B$ so that the composition $g \circ f = g(f(x))$ is defined on $A$.
+        
+        If $f$ is continuous at $c \in A$, and if $g$ is continuous at $f(c) \in B$, then $g \circ f$ is continuous at $c$.
+    \end{Thm}
+    \item [(c)] No, result doesn't hold if we only assume $f$ is continuous, and that was the result shown in (a).
+    
+    If we only assume $g$ is continuous,
+    $$
+        \lim_{x \to q} g(x) = g(q) = r.
+    $$
+    But we know $\lim_{x \to p} f(x) = q$, so
+    $$
+        \lim_{x \to p} g(f(x)) = \lim_{f(x) \to q} g(f(x)) = g(q) = r.    
+    $$
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 4.3.8**) Decide if the following claims are true or false, providing either a short proof or counterexample to justify each conclusion. Assume throughout that $g$ is defined and continuous on all of $\R$.
+\begin{enumerate}
+    \item [(a)] If $g(x) \geq 0$ for all $x < 1$, then $g(1) \geq 0$ as well.
+    \item [(b)] If $g(r) = 0$ for all $r \in \Q$, then $g(x) = 0$ for all $x \in \R$.
+    \item [(c)] If $g(x_0) > 0$ for a single point $x_0 \in \R$, then $g(x)$ is in fact strictly positive for uncountably many points.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] True. Assume for contradiction $g(1) < 0$. Pick $\epsilon = |g(1)| > 0$. Then we observe that for all $x$ such that $|x - 1| < \delta$, $|g(x) - g(1)| \geq |g(1)| = \epsilon$, which contradicts fundamental assumption that $g$ is continuous. So $g(1) \geq 0$.
+    \item [(b)] True. By Density of $\Q$ in $\R$ we know that there exists $r \in \Q$ such that $r \in V_\delta(x)$ for some $\delta > 0$, for all $x \in \R$. For all $\epsilon > 0$, there exists such a $\delta$-neighborhood such that whenever, $|x - r| < \delta \iff r \in V_\delta(x)$, $|g(x) - g(r)| < \epsilon$ implies $g(x) = g(r) = 0$.
+    \item [(c)] True. By continuity of $g$, for all $\epsilon > 0$, whenever $|x - x_0| < \delta$ we have that 
+    $$
+        |g(x) - g(x_0)| < \epsilon.
+    $$
+    Picking $\epsilon = |g(x_0)|$, notice that for the above to hold, it must be that
+    $$
+        g(x) > 0,
+    $$
+    i.e. $g(x)$ strictly positive. Lastly note that the length $|x - x_0| < \delta$ is uncountable in $\R$ for all $x \in \R$.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 4.4.2**)
+\begin{enumerate}
+    \item [(a)] Is $f(x) = 1/x$ uniformly continuous on $(0,1)$?
+    \item [(b)] Is $g(x) = \sqrt{x^2 + 1}$ uniformly continuous on $(0,1)$?
+    \item [(c)] Is $h(x) = x\sin(1/x)$ uniformly continuous on $(0,1)$?
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] No. Assume $f(x) = 1/x$ continuous. Observe that given $\epsilon > 0$
+    $$
+        |\frac{1}{x} - \frac{1}{y}| = |\frac{x - y}{xy}| < \epsilon
+    $$
+    whenever $|x - y| < \delta$. This means that
+    $$
+        |xy| \geq \frac{\delta}{\epsilon} \implies \delta \leq \epsilon |xy|
+    $$
+    which shows that $f$ not uniformly continuous on $(0,1)$.
+    
+    Alternatively, define two sequences $(x_n)$ and $(y_n)$ by $x_n = 1/n$ and $y_n = 1/2n$. Then for $\epsilon_0 = 1$,
+    $$
+        |x_n - y_n| = |\frac{1}{n} - \frac{1}{2n}| = |\frac{1}{2n}| \to 0,
+    $$
+    but
+    $$
+        |f(x_n) - f(y_n)| = |n - 2n| = |n| \geq 1 = \epsilon_0
+    $$
+    so by Theorem 4.4.5 $f$ is not uniformly continuous on $(0,1)$.
+    \item [(b)] Yes. Let $x,y \in (0,1)$, then
+    \begin{align*}
+        |g(x) - g(y)| &= |\frac{(\sqrt{x^2 + 1} - \sqrt{y^2 + 1})(\sqrt{x^2 + 1} + \sqrt{y^2 + 1})}{\sqrt{x^2 + 1} + \sqrt{y^2 + 1}}| \\
+        &= |\frac{x^2 + 1 - y^2 - 1}{\sqrt{x^2 + 1} + \sqrt{y^2 + 1}}| \\
+        &= \frac{|x^2 - y^2|}{\sqrt{x^2 + 1} + \sqrt{y^2 + 1}} \\
+        &\leq |x - y|\frac{|x + y|}{2} \\
+        &< |x - y|
+    \end{align*}
+    since $\sqrt{x^2 + 1} \geq 1$ and $\sqrt{y^2 + 1} \geq 1$ given $x, y \in (0,1)$, and $|x + y| / 2 < 1$. Set $\delta = \epsilon$, and we have that
+    $$
+        |g(x) - g(y)| < |x - y| < \delta = \epsilon
+    $$
+    for all $\epsilon > 0$ whenever $|x - y| < \delta$. Therefore $g$ is uniformly continuous on $(0,1)$.
+    \item [(c)] Yes. Consider a modified $h'(x)$ defined by
+    \begin{align*}
+        h'(x) = 
+            \begin{cases}
+                x\sin(1/x) & \text{if $x \neq 0$} \\
+                0 & \text{if $x = 0$}
+            \end{cases}
+    \end{align*}
+    We will prove $h(x)$ uniformly continuous by first proving that $h'(x)$ is continuous on the compact set $[0,1]$ and consequently is uniformly continuous on $[0,1]$, and the open interval $(0,1)$, and use this to show $h(x)$ uniformly continuous on $(0,1)$.
+    
+    Given $\epsilon > 0$, for some $c \neq 0$ we can estimate
+    \begin{align*}
+        |h(x) - h(c)| &= |x\sin(\frac{1}{x}) - c\sin(\frac{1}{c})| \\
+        &\leq |x\sin(\frac{1}{x}) - x\sin(\frac{1}{c})| + |x\sin(\frac{1}{c}) - c\sin(\frac{1}{c})| \\
+        &= |x||\sin(\frac{1}{x}) - \sin(\frac{1}{c})| + |x - c||\sin(\frac{1}{c})| \\
+        &= |x||2\sin(\frac{1/x - 1/c}{2})cos(\frac{1/x - 1/c}{2})| + |x - c||\sin(\frac{1}{c})| \\
+        &= 2|x||\sin(\frac{c - x}{2cx})cos(\frac{x + c}{2cx})| + |x - c||\sin(\frac{1}{c})| \\
+        &= 2|x||\sin(\frac{c - x}{2cx})| + |x - c||\sin(\frac{1}{c})| \\
+        &= 2|x||\frac{c-x}{2cx}| + |x - c||\sin(\frac{1}{c})| \\
+        &= |x||\frac{c-x}{cx}| + |x - c||\sin(\frac{1}{c})| \\
+        &\leq |\frac{x - c}{c}| + |\frac{x - c}{c}| \\
+        &= 2|\frac{x - c}{c}|.
+    \end{align*}
+    We can find $\delta = |c|\epsilon / 2$ such that
+    $$
+        |f(x) - f(c)| \leq 2|\frac{x - c}{c}| < \cancel{2} \frac{|c|\epsilon / \cancel{2}}{|c|}< \epsilon
+    $$
+    whenever $|x - a| < \delta$. For $h'(0) = 0$ see Example 4.3.6. So we have shown $h'(x)$ continuous on $[0,1]$, by Theorem 4.4.7 Uniform Continuity on Compact Sets, $h'(x)$ is uniformly continuous on $[0,1]$, meaning $h'(x)$ also uniformly continuous on $(0,1)$. Given $h'(x)$ is just $h(x)$ extended to be defined on $0$, it follows that naturally $h(x)$ is also uniformly continuous on $(0,1)$.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 4.4.4**) Decide whether each of the following statements is true or false, justifying each conclusion.
+\begin{enumerate}
+    \item [(a)] If $f$ is continuous on $[a,b]$ with $f(x) > 0$ for all $a \leq x \leq b$, then $1/f$ is bounded on $[a,b]$ (meaning $1/f$ has bounded range).
+    \item [(b)] If $f$ is uniformly continuous on a bounded set $A$, then $f(A)$ is bounded.
+    \item [(c)] If $f$ is defined on $\R$ and $f(K)$ is compact whenever $K$ is compact, then $f$ is continuous on $\R$.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] True. $f$ is continuous on the compact set $[a,b]$, so by Theorem 4.4.2 Extreme Value Theorem, we know $f$ attains a maximum and minimum value. In particular, there exists $x_0,x_1 \in [a,b]$ such that 
+    $$
+        f(x_0) \leq f(x) \leq f(x_1)
+    $$
+    for all $x \in [a,b]$. Given $f(x) > 0$ for all $a \leq x \leq b$, $f(x_0) > 0$,
+    $$
+        \frac{1}{f(x_1)} \leq \frac{1}{f(x)} \leq \frac{1}{f(x_0)}
+    $$
+    and we have shown $1/f$ is bounded on $[a,b]$.
+    \item [(b)] True. Assume for contradiction that $f(A)$ is unbounded. This means that for all $a \in A$, $|f(a)| \geq N$ for some $N \in \N$. In particular, for the sequence $(a_n) \subseteq A$, $|f(a_n)| \geq N$. Then because $A$ bounded, we know by Bolzano-Weierstrass Theorem that every bounded sequence contains a convergent subsequence, i.e. for some $(a_n) \subseteq A$ there exists a convergent subsequence $(a_{n_k})$. Then we know $(a_{n_{k+1}})$ also converges to the same limit as $(a_{n_k})$ because the limit of a convergent sequence is not dependent on first finitely many terms. So with this, we have
+    $$
+        |a_{n_k} - a_{n_{k+1}}| \to 0.
+    $$
+    But
+    $$
+        |f(a_{n_k} - f(a_{n_{k+1}})| \geq |f(a_{n_k})| - |f(a_{n_{k+1}})| \geq N_1 - N_2 \in \R,
+    $$
+    and by Theorem 4.4.5 Sequential Criterion for Absence of Uniform Continuity, $f$ fails to be uniformly continuous on $A$; which contradicts the stipulation that $f$ is uniformly continuous on $A$. So our assumption was false, and therefore $f(A)$ is bounded.
+    \item [(c)] False. Consider the counterexample given by Dirichlet's function:
+    \begin{align*}
+        d(x) =
+            \begin{cases}
+                1 & \text{if $x \in \Q$} \\
+                0 & \text{if $x \not \in \Q$}
+            \end{cases}
+    \end{align*}
+    that is defined on $\R$, with $f(K) = [0,1]$ whenever $K$ compact (closed and bounded), but $f$ evidently not continuous on $\R$.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 4.4.6**) Give an example of each of the following, or state that such a request is impossible. For any that are impossible, supply a short explanation for why this is the case.
+\begin{enumerate}
+    \item [(a)] A continuous function $f : (0,1) \to \R$ and a Cauchy sequence $(x_n)$ such that $f(x_n)$ is not a Cauchy sequence;
+    \item [(b)] A uniformly continuous function $f : (0,1) \to \R$ and a Cauchy sequence $(x_n)$ such that $f(x_n)$ is not a Cauchy sequence;
+    \item [(c)] A continuous function $f : [0,\infty) \to \R$ and a Cauchy sequence $(x_n)$ such that $f(x_n)$ is not a Cauchy sequence.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] Consider the function $f$ given by
+    $$
+        f(x) = \frac{1}{x}.
+    $$
+    Let $x_n = 1 / n$ for all $n \in \N$, then 
+    $$
+        f(x_n) = \frac{1}{1 / n} = n
+    $$
+    is an unbounded sequence and therefore not convergent, i.e. not Cauchy.
+    \item [(b)] Impossible request. Given $f$ uniformly continuous, we know for all $\epsilon > 0$, there exists a $\delta > 0$ such that for all $x, y \in (0,1)$,
+    $$
+        |x - y| < \delta \implies |f(x) = f(y)| < \epsilon.
+    $$
+    Given $(x_n) \subseteq (0,1)$ Cauchy, by definition for all $\delta > 0$ there exist $N \in \N$ such that for all $n,m \geq N$,
+    $$
+        |x_n - x_m| < \delta \implies |f(x_n) - f(y_n)| < \epsilon.
+    $$
+    \item [(c)] Impossible request. Note that the domain $[0,\infty)$ is closed (complement $(-\infty,0)$ is open), and so it contains all its limit points. So, for $(x_n)$ convergent (implied by Cauchy criterion) with $(x_n) \to x \in [0, \infty)$, given $f$ continuous, 
+    $$
+        f(x_n) \to f(x)
+    $$
+    which means $f(x_n)$ Cauchy.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 4.4.8**) Give an example of each of the following, or provide a short argument for why the request is impossible.
+\begin{enumerate}
+    \item [(a)] A continuous function defined on [0,1] with range (0,1).
+    \item [(b)] A continuous function defined on (0,1) with range [0,1].
+    \item [(c)] A continuous function defined on (0,1] with range (0,1).
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] Impossible request. $[0,1]$ is compact. By Theorem 4.4.1 Preservation of Compact Sets, $f([0,1])$ (range of $f$) is compact as well, and so cannot be $(0,1)$.
+    \item [(b)] Consider the function $f$ given by
+    $$
+        f(x) = |\cos(2\pi x)|    
+    $$
+    that is continuous on domain $(0,1)$, given $\cos(x)$ continuous on $\R$, with range $[0,1]$.
+    \item [(c)] 
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 4.5.2**) Provide an example of each of the following, or explain why the request is impossible.
+\begin{enumerate}
+    \item [(a)] A continuous function defined on an open interval with range equal to a closed interval.
+    \item [(b)] A continuous function defined on a closed interval with range equal to an open interval.
+    \item [(c)] A continuous function defined on an open interval with range equal to an unbounded closed set different from $\R$.
+    \item [(d)] A continuous function defined on all of $\R$ with range equal to $\Q$.
+\end{enumerate}
+\end{Prob}
+
+\begin{proof}
+\begin{enumerate}
+    \item [(a)] Consider the function $f:(0,1) \to [0,1]$ given by
+    $$
+        f(x) = |\cos(2\pi x)|
+    $$
+    for $0 < x < 1$, that is continuous on domain $(0,1)$, given $\cos(x)$ is continuous on $\R$, with range $[0,1]$.
+    \item [(b)] Impossible request. A closed interval is closed and bounded, and therefore, by Heine-Borel Theorem, compact. By Preservation of Compact Sets, a continuous function defined on a compact set has range that is compact as well, but open interval is not closed therefore not compact.
+    \item [(c)] Consider the function $f:(-\pi/2,\pi/2)$ given by
+    \begin{align*}
+        f(x) = 
+            \begin{cases}
+            -x & \text{if $x < 0$} \\
+            \tan(x) & \text{if $x \geq 0$}
+            \end{cases}
+    \end{align*}
+    and observe that for the restricted open interval domain $(-\pi/2,\pi/2) \subseteq \R$, the range $f((-\pi/2,\pi/2)) = [0,\infty)$ is an unbounded closed set (since $[0,\infty)^c = (-\infty,0)$ is open) different from $\R$.
+    \item [(d)] Impossible request. $\R$ is a connected set, by definition, so by Preservation of Connected Sets, a continuous function on $\R$ must have a range that is connected as well, but $\Q$ not connected since (letting $A = (~\Q \cap (-\infty,\sqrt{2})~)$, $B = (~\Q \cap (\sqrt{2},\infty)~)$),
+    $$
+        \overline{A} = (-\infty,\sqrt{2}],
+    $$
+    and
+    $$
+        \overline{B} = [\sqrt{2}, \infty)
+    $$
+    but
+    $$
+        \overline{A} \cap B = \emptyset = A \cap \overline{B}
+    $$
+    and we have
+    \begin{align*}
+        \begin{cases}
+            \Q = A ~ \cup ~ B \\
+            A ~ \neq ~ \emptyset ~ \neq ~ B \\
+            \overline{A} \cap B ~ = ~ \emptyset ~ = ~ A \cap \overline{B}
+        \end{cases}.
+    \end{align*}
+    We have proven $\Q$ not connected, and since $g$ continuous on compact set $\R$, such a continuous function with range equal to $\Q$ (disconnected set) does not exist.
+\end{enumerate}
+
+\end{proof}
+
+\begin{Prob}(Ex. 4.5.7**) Let $f$ be a continuous function on the closed interval [0,1] with range also contained in $[0,1]$. Prove that $f$ must have a fixed point; that is, show $f(x) = x$ for at least one value of $x \in [0,1]$.
+\end{Prob}
+
+\begin{proof}
+If either $f(0) = 0$ or $f(1) = 1$, we are done.
+
+Assume $f(0) \neq 0$ and $f(1) \neq 1$. Because range is also contained in $[0,1]$, 
+$$
+    f(0) > 0 \implies f(0) - 0 > 0
+$$
+and 
+$$
+    f(1) < 1 \implies f(1) - 1 < 0.
+$$
+We define $g:[0,1] \to [-1,1]$ as $g(x) = f(x) - x$ which is continuous. Note that $-1 \leq f(x) - x \leq 1$. By the Intermediate Value Theorem, $g$ continuous on $[0,1]$ so
+$$
+    [g(1),g(0)] \subseteq g([0,1]).
+$$
+Since 
+$$
+g(1) = f(1) - 1 < 0 < f(0) - 0 < g(0),
+$$
+we have $0 \in [g(1),g(0)] \subseteq g([0,1])$. So there exists $x \in [0,1]$ such that $g(x) = 0$, i.e. $f(x) - x = 0 \implies f(x) = x$.
+
+\end{proof}
+
+\end{document}
